@@ -156,7 +156,7 @@
 		data() {
 			return {
 				flag: 0,
-				tagnav: ['个性推荐', '歌单', '主播电台', '排行榜'],
+				tagnav: ['个性推荐', '歌1单', '主播电台', '排行榜'],
 				tabActive: "tab-container1",
 			}
 		},
