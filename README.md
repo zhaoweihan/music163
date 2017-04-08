@@ -1,6 +1,6 @@
 # music163
 
-> 基于webpack+vue-cli+vuex+iView技术栈的网易云音乐仿写
+> 基于webpack+vue-cli+vuex+mint-UI技术栈的网易云音乐仿写
 
 ## Build Setup
 
