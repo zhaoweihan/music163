@@ -40,10 +40,10 @@
 					<div class="recommendSonglist">
 						<div class="title"><i class="mui-icon mui-icon-navigate"></i><span>推荐歌单</span><em>更多</em></div>
 						<div class="songlist">
-							<div class="songbox" v-for="index in 6">
-								<i>166万</i>
-								<div class="imgbox"><img :src="'http://192.168.1.106:8020/music163/src/assets/recommendSong/song'+index+'.jpg'" /></div>
-								<p>老歌|年轻时候不懂，为何现在却红了双眼</p>
+							<div class="songbox" v-for="(item,index) in recommendSonglist" v-if="index <	 6">
+								<i>{{item.num}}</i>
+								<div class="imgbox"><img :src="item.cover" /></div>
+								<p>{{item.title}}</p>
 							</div>
 
 						</div>
@@ -152,31 +152,53 @@
 <script>
 	import Vue from 'vue';
 	export default {
-		name: 'homepage',
-		data() {
-			return {
-				flag: 0,
-				tagnav: ['个性推荐', '歌单', '主播电台', '排行榜'],
-				tabActive: "tab-container1",
-			}
-		},
-		methods: {
-			switchs(index) {
-				this.flag = index;
-				this.tabActive = "tab-container" + (index + 1);
-			}
-		},
-		watch: {
-			tabActive(val, oldVal) {
-				this.flag = Number(val.substr(-1, 1)) - 1;
-			}
-		},
-		computed: {
-			bannerHeight() { //动态计算banner图高度。以达到自适应
-				return screen.width / 2.17;
-			}
-		}
+	  name: 'homepage',
+	  data() {
+	    return {
+	      flag: 0,
+	      tagnav: ['个性推荐', '歌单', '主播电台', '排行榜'],
+	      tabActive: "tab-container1",
+		  recommendSonglist:[]
+	    }
+	  },
+	  methods: {
+	    switchs(index) {
+	      this.flag = index;
+	      this.tabActive = "tab-container" + (index + 1);
+	    },
+	    getlist() {
+	      this.$http.get("http://192.168.1.106:3000/recommendLst")
+	        .then((data) => {
+	          console.log(data.body);
+			  var result=data.body;
+			  if(result.code==200){
+				 // this.recommendSonglist=JSON.stringify(result.data);
+				  this.recommendSonglist=result.data;
+			  }
+	          // 响应成功回调
+	        }, (error) => {
+	          // 响应错误回调
+			 console.log("e:"+error);
+	        })
+	    }
+	  },
+	  watch: {
+	    tabActive(val, oldVal) {
+	      this.flag = Number(val.substr(-1, 1)) - 1;
+	    }
+	  },
+	  computed: {
+	    bannerHeight() { //动态计算banner图高度。以达到自适应
+	      return screen.width / 2.17;
+	    }
+	  },
+	  created() {
+	    this.getlist();
+	  }
 	}
+
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
