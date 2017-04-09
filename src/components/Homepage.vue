@@ -16,9 +16,9 @@
 				<mt-tab-container-item id="tab-container1" data-class="tab-container-1">
 					<!--第一屏内容-->
 					<!--轮播图-->
-					<mt-swipe :auto="0" :style="{height:bannerHeight +'px'}" :prevent="true" :defaultIndex="7">
-						<mt-swipe-item v-for="index in 8" :key="index">
-							<a href="javascript:;"><img :src="'http://192.168.1.106:8020/music163/src/assets/homebanner/banner'+index+'.jpg'" /></a>
+					<mt-swipe :auto="0" :style="{height:bannerHeight +'px'}" :prevent="true" :defaultIndex="0">
+						<mt-swipe-item v-for="(item,index) in bannerlist" :key="index">
+							<a :href="item.url"><img :src="item.picUrl" /></a>
 						</mt-swipe-item>
 					</mt-swipe>
 					<!--icon导航-->
@@ -28,7 +28,7 @@
 							<p>私人FM</p>
 						</div>
 						<div class="icon-li">
-							<i class="redBorder">8</i>
+							<i class="redBorder">{{nowdate}}</i>
 							<p>每日歌曲推荐</p>
 						</div>
 						<div class="icon-li">
@@ -70,15 +70,11 @@
 					<div class="latestMusic recommendSonglist">
 						<div class="title"><i class="mui-icon mui-icon-navigate"></i><span>最新音乐</span><em>更多</em></div>
 						<div class="songlist">
-							<div class="songbox" v-for="index in 6">
-								<div class="imgbox"><img :src="'http://192.168.1.106:8020/music163/src/assets/latestMusic/'+index+'.jpg'" /></div>
-								<p v-if="index%2==0">友谊的小船
-									<span>Linkin Park</span>
+							<div class="songbox" v-for="(item,index) in latestmusiclist">
+								<div class="imgbox"><img :src="item.picUrl" /></div>
+								<p>{{item.albumName}}
+									<span>{{item.singerName}}</span>
 								</p>
-								<p v-if="index%2!=0">One More Light
-									<span>张敬轩/王菀之</span>
-								</p>
-
 							</div>
 
 						</div>
@@ -95,42 +91,9 @@
 						<div class="itembox-title">云音乐官方榜</div>
 						<div class="itembox-content">
 							 	<ul class="ranking-list">
-							 		<li>
+							 		<li v-for="(item,index) in music163ranklist">
 							 			<div class="ranklogo">
-							 				<img src="http://p4.music.126.net/DrRIg6CrgDfVLEph9SNh7w==/18696095720518497.jpg?param=120y120"/>
-							 				<div class="msk"></div>
-							 			</div>
-							 			<div class="rightlist">
-							 				<p>1.高尚 - 薛之谦</p>
-							 				<p>2.大雁 - 马頔</p>
-							 				<p>3.Something Just Like - ThenkYou3.Something Just Like - ThenkYou</p>
-							 			</div>
-							 		</li>
-							 		<li>
-							 			<div class="ranklogo">
-							 				<img src="http://p3.music.126.net/N2HO5xfYEqyQ8q6oxCw8IQ==/18713687906568048.jpg?param=120y120"/>
-							 				<div class="msk"></div>
-							 			</div>
-							 			<div class="rightlist">
-							 				<p>1.高尚 - 薛之谦</p>
-							 				<p>2.大雁 - 马頔</p>
-							 				<p>3.Something Just Like - ThenkYou3.Something Just Like - ThenkYou</p>
-							 			</div>
-							 		</li>
-							 		<li>
-							 			<div class="ranklogo">
-							 				<img src="http://p3.music.126.net/sBzD11nforcuh1jdLSgX7g==/18740076185638788.jpg?param=120y120"/>
-							 				<div class="msk"></div>
-							 			</div>
-							 			<div class="rightlist">
-							 				<p>1.高尚 - 薛之谦</p>
-							 				<p>2.大雁 - 马頔</p>
-							 				<p>3.Something Just Like - ThenkYou3.Something Just Like - ThenkYou</p>
-							 			</div>
-							 		</li>
-							 		<li>
-							 			<div class="ranklogo">
-							 				<img src="http://p4.music.126.net/GhhuF6Ep5Tq9IEvLsyCN7w==/18708190348409091.jpg?param=120y120"/>
+							 				<img :src="item.cover"/>
 							 				<div class="msk"></div>
 							 			</div>
 							 			<div class="rightlist">
@@ -155,30 +118,81 @@
 	  name: 'homepage',
 	  data() {
 	    return {
+	      nowdate: new Date().getDate(),
 	      flag: 0,
 	      tagnav: ['个性推荐', '歌单', '主播电台', '排行榜'],
 	      tabActive: "tab-container1",
-		  recommendSonglist:[]
+	      bannerlist: [],
+	      recommendSonglist: [],
+	      latestmusiclist: [],
+	      music163ranklist: []
 	    }
 	  },
 	  methods: {
 	    switchs(index) {
 	      this.flag = index;
 	      this.tabActive = "tab-container" + (index + 1);
+	      if (index == 3) this.ranking();
 	    },
-	    getlist() {
-	      this.$http.get("http://192.168.1.106:3000/recommendLst")
+	    getBannerList() {
+	      this.$http.get("http://192.168.1.106:3000/banner_list")
 	        .then((data) => {
-	          console.log(data.body);
-			  var result=data.body;
-			  if(result.code==200){
-				 // this.recommendSonglist=JSON.stringify(result.data);
-				  this.recommendSonglist=result.data;
-			  }
+	          var result = data.body;
+	          if (result.code == 200) {
+	            this.bannerlist = result.data;
+	          }
 	          // 响应成功回调
 	        }, (error) => {
 	          // 响应错误回调
-			 console.log("e:"+error);
+	          console.log("e:" + error);
+	        })
+	    },
+	    recommendSong() {
+	      this.$http.get("http://192.168.1.106:3000/recommendList")
+	        .then((data) => {
+	          var result = data.body;
+	          if (result.code == 200) {
+	            for (let i = 0; i < result.data.length; i++) {
+	              result.data[i].cover = result.data[i].cover.replace("?param=140y140", "");
+	            }
+	            this.recommendSonglist = result.data;
+	          }
+	          // 响应成功回调
+	        }, (error) => {
+	          // 响应错误回调
+	          console.log("e:" + error);
+	        })
+
+	    },
+	    latestMusicList() {
+	      this.$http.get("http://192.168.1.106:3000/latestMusicList")
+	        .then((data) => {
+	          var result = data.body;
+	          if (result.code == 200) {
+	            this.latestmusiclist = result.data;
+	          }
+	          // 响应成功回调
+	        }, (error) => {
+	          // 响应错误回调
+	          console.log("e:" + error);
+	        })
+
+	    },
+	    ranking() {
+	      this.$http.get("http://192.168.1.106:3000/top_list")
+	        .then((data) => {
+	          var result = data.body;
+	          if (result.code == 200) {
+	            this.music163ranklist = result.data[0].items;
+							this.music163ranklist.forEach((item,index)=>{
+								item.cover=item.cover.replace("40y40","120y120");
+							})
+							//TODO 排行榜 歌曲列表
+	          }
+	          // 响应成功回调
+	        }, (error) => {
+	          // 响应错误回调
+	          console.log("e:" + error);
 	        })
 	    }
 	  },
@@ -193,7 +207,9 @@
 	    }
 	  },
 	  created() {
-	    this.getlist();
+	    this.getBannerList();
+	    this.recommendSong();
+	    this.latestMusicList();
 	  }
 	}
 
