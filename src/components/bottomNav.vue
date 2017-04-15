@@ -3,7 +3,7 @@
   <router-view></router-view>
 
   <div class="bottomNav">
-    <router-link to="/bottomnav/homepage"><i class="iconfont icon-wangyiyunyinlezizhi"></i>发现音乐</router-link>
+    <router-link to="/bottomnav/"><i class="iconfont icon-wangyiyunyinlezizhi"></i>发现音乐</router-link>
     <router-link to="/bottomnav/mymusic" ><i class="iconfont icon-music"></i>我的音乐</router-link>
     <router-link to="/bottomnav/friends" ><i class="iconfont icon-friend"></i>朋友</router-link>
     <router-link to="/bottomnav/myzone"><i class="iconfont icon-user"></i>我的</router-link>
