@@ -25,7 +25,8 @@ import Musicinfo from '../components/Musicinfo';
 Vue.use(Router);
 
 export default new Router({
-  routes: [{
+  mode: 'history',
+  routes: [ {
       path: '/',
       name: 'musicstart',
       component: Musicstart
@@ -39,7 +40,7 @@ export default new Router({
           component: Findmusic,
           children: [{
             path: '/',
-			name:'personaRecommen',
+            name: 'personaRecommen',
             component: personaRecommen
           }, {
             path: 'rank',
