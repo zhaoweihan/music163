@@ -16,7 +16,7 @@
 		methods:{
 			init:function(){
 				setTimeout(function(){
-					router.replace("/homepage");
+					router.replace("/bottomnav/homepage");
 				},1000);
 			}
 		}

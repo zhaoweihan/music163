@@ -16,7 +16,7 @@
 				<mt-tab-container-item id="tab-container1" data-class="tab-container-1">
 					<!--第一屏内容-->
 					<!--轮播图-->
-					<mt-swipe :auto="0" :style="{height:bannerHeight +'px'}" :prevent="true" :defaultIndex="0">
+					<mt-swipe :auto="3000" :style="{height:bannerHeight +'px'}" :prevent="true" :defaultIndex="0">
 						<mt-swipe-item v-for="(item,index) in bannerlist" :key="index">
 							<a :href="item.url"><img :src="item.picUrl" /></a>
 						</mt-swipe-item>
@@ -53,16 +53,16 @@
 						<div class="title"><i class="mui-icon mui-icon-navigate"></i><span>独家放送</span><em>更多</em></div>
 						<div class="firstfloor">
 							<div class="firstfloorBox left">
-								<img src="../assets/djfs/djfs1.png" />
+								<img src="../../assets/djfs/djfs1.png" />
 								<p>网易原创歌曲榜 在深沉的汪洋中抬头仰望星空</p>
 							</div>
 							<div class="firstfloorBox right">
-								<img src="../assets/djfs/djfs2.png" />
+								<img src="../../assets/djfs/djfs2.png" />
 								<p>幸田来未全新数字专辑《WFACE~inside~》独家上线！</p>
 							</div>
 						</div>
 						<div class="secondfloor">
-							<img src="../assets/djfs/djfs3.jpg" />
+							<img src="../../assets/djfs/djfs3.jpg" />
 							<p>一周热评 第103期 大唐农药 ，喝完这碗还有一碗</p>
 						</div>
 					</div>
@@ -219,5 +219,5 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-	@import "../sass/homepage.scss";
+	@import "../../sass/homepage.scss";
 </style>

@@ -4,43 +4,65 @@ import iconfont from '../lib/iconfont.css';
 
 //  引入组件
 import Musicstart from '../components/Musicstart';
-import Homepage from '../components/Homepage';
-import Mymusic from '../components/Mymusic';
-import Myzone from '../components/Myzone';
+import Bottomnav from '../components/bottomNav';
+import Homepage from '../components/home/Homepage';
+import Mymusic from '../components/home/Mymusic';
+import Myzone from '../components/home/Myzone';
+import Friends from '../components/home/Friends';
 import Musicinfo from '../components/Musicinfo';
-import Friends from '../components/Friends';
 Vue.use(Router);
 
 export default new Router({
-	routes: [{
-			path: '/',
-			name: 'musicstart',
-			component:Musicstart
-		},
+  routes: [{
+      path: '/',
+      name: 'musicstart',
+      component: Musicstart
+    }, {
+      path: '/bottomnav',
+      name: 'bottomnav',
+      component: Bottomnav,
+      children: [{
+          path: 'homepage',
+          component: Homepage
+        },
+        {
+          path: 'mymusic',
+          component: Mymusic
+        },
 		{
-			path: '/homepage',
-			name: 'homepage',
-			component: Homepage
-		},
+          path: 'friends',
+          component: Friends
+        },
 		{
-			path: '/mymusic',
-			name: 'mymusic',
-			component: Mymusic
-		},
-		{
-			path: '/friends',
-			name: 'friends',
-			component: Friends
-		},
-		{
-			path: '/myzone',
-			name: 'myzone',
-			component: Myzone
-		},
-		{
-			path: '/musicinfo/:id',
-			name: 'musicinfo',
-			component: Musicinfo
-		}
-	]
+          path: 'myzone',
+          component: Myzone
+        }
+      ]
+    },
+    {
+      path: '/homepage',
+      name: 'homepage',
+      component: Homepage
+    },
+    {
+      path: '/mymusic',
+      name: 'mymusic',
+      component: Mymusic
+    },
+    {
+      path: '/friends',
+      name: 'friends',
+      component: Friends
+    },
+    {
+      path: '/myzone',
+      name: 'myzone',
+      component: Myzone
+    },
+    {
+      path: '/musicinfo/:id',
+      name: 'musicinfo',
+      component: Musicinfo
+    }
+  ]
 });
