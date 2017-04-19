@@ -1,6 +1,6 @@
 <template>
   <mt-tab-container-item id="tab-container1" data-class="tab-container-1">
-    <!--第一屏内容-->
+    <!--第一屏内容1-->
     <!--轮播图-->
     <mt-swipe :auto="3000" :style="{height:bannerHeight +'px'}" :prevent="true" :defaultIndex="0">
       <mt-swipe-item v-for="(item,index) in bannerlist" :key="index">
