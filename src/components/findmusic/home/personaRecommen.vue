@@ -91,7 +91,7 @@
           if (index == 3) this.ranking();
         },
         getBannerList() {
-          this.$http.get("http://192.168.1.106:3000/banner_list")
+          this.$http.get("http://localhost:3000/banner_list")
             .then((data) => {
               var result = data.body;
               if (result.code == 200) {
@@ -104,7 +104,7 @@
             })
         },
         recommendSong() {
-          this.$http.get("http://192.168.1.106:3000/recommendList")
+          this.$http.get("http://localhost:3000/recommendList")
             .then((data) => {
               var result = data.body;
               if (result.code == 200) {
@@ -121,7 +121,7 @@
 
         },
         latestMusicList() {
-          this.$http.get("http://192.168.1.106:3000/latestMusicList")
+          this.$http.get("http://localhost:3000/latestMusicList")
             .then((data) => {
               var result = data.body;
               if (result.code == 200) {

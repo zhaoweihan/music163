@@ -31,7 +31,7 @@
     	  },
     	  methods: {
     	    ranking() {
-    	      this.$http.get("http://192.168.1.106:3000/top_list")
+    	      this.$http.get("http://localhost:3000/top_list")
     	        .then((data) => {
     	          var result = data.body;
     	          if (result.code == 200) {
