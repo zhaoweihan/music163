@@ -10,9 +10,9 @@
               <div class="msk"></div>
             </div>
             <div class="rightlist">
-              <p>1.高尚 - 薛之谦</p>
-              <p>2.大雁 - 马頔</p>
-              <p>3.Something Just Like - ThenkYou3.Something Just Like - ThenkYou</p>
+              <p v-for="(song,i) in item.songlist">{{i+1}}.{{song.name}} - 
+                <em v-for="(ar,jk) in song.artists" ><i v-if="jk!=0"> / </i>{{ar.name}}</em>
+              </p>
             </div>
           </li>
         </ul>
@@ -23,30 +23,42 @@
 </template>
 <script>
 import servers from '../../../lib/servers'
-import { Toast } from 'mint-ui';
+import {
+  Toast
+} from 'mint-ui';
 export default {
   data() {
     return {
-      music163ranklist: []
+      music163ranklist: [],
     }
 
   },
   methods: {
     ranking() {
-      const self = this;
-      servers.get("http://localhost:3000/top_list", function (result) {
+      let self = this;
+      servers.get("/top_list", function (result) {
         self.music163ranklist = result.data[0].items;
         self.music163ranklist.forEach((item, index) => {
           item.cover = item.cover.replace("40y40", "120y120");
+          (function (ids,j) {
+            //排行榜前三首歌
+            servers.get("/topSongList/" + ids, function (result) {
+              result.length = 3;
+              self.music163ranklist[j].songlist = result.data;
+              console.log(self.music163ranklist[j]);
+            })
+          })(item.href.split("?id=")[1],index)
         });
 
       });
     }
   },
+
   created() {
     this.ranking();
   }
 }
+
 
 
 </script>

@@ -9,11 +9,11 @@
     <div class="mui-content">
       <!--tabContainer-->
       <div class="tagnav">
-        <span v-for='(item, $index) in tagnav' :class="{'on':flag==$index}" @click="switchs($index)">{{item}} </span>
+        <span v-for='(item, $index) in tagnav' :class="{'on':flag==$index}"  @click="switchs($index)">{{item}} </span>
       </div>
       <!--内容-->
       <mt-tab-container v-model="tabActive" :swipeable="false">
-        <router-view></router-view>
+       <router-view></router-view>
       </mt-tab-container>
     </div>
   </div>
@@ -34,7 +34,6 @@
 	  },
 	  methods: {
 	    switchs(index) {
-	      this.flag = index;
 	      this.tabActive = "tab-container" + (index + 1);
 	      switch (index) {
 	        case 0:

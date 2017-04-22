@@ -4,7 +4,7 @@
     <!--轮播图-->
     <mt-swipe :auto="3000" :style="{height:bannerHeight +'px'}" :prevent="true" :defaultIndex="0">
       <mt-swipe-item v-for="(item,index) in bannerlist" :key="index">
-        <a :href="item.url"><img :src="item.picUrl" /></a>
+        <a :href="item.url"><img v-lazy="item.picUrl" /></a>
       </mt-swipe-item>
     </mt-swipe>
     <!--icon导航-->
@@ -28,7 +28,7 @@
       <div class="songlist">
         <div class="songbox" v-for="(item,index) in recommendSonglist" v-if="index <	 6">
           <i>{{item.num}}</i>
-          <div class="imgbox"><img :src="item.cover" /></div>
+          <div class="imgbox"><img v-lazy="item.cover" /></div>
           <p>{{item.title}}</p>
         </div>
 
@@ -57,7 +57,7 @@
       <div class="title"><i class="mui-icon mui-icon-navigate"></i><span>最新音乐</span><em>更多</em></div>
       <div class="songlist">
         <div class="songbox" v-for="(item,index) in latestmusiclist">
-          <div class="imgbox"><img :src="item.picUrl" /></div>
+          <div class="imgbox"><img v-lazy="item.picUrl" /></div>
           <p>{{item.albumName}}
             <span>{{item.singerName}}</span>
           </p>
@@ -70,6 +70,7 @@
 
 <script>
     import Vue from 'vue';
+    import servers from '../../../lib/servers'
     export default {
       data() {
         return {
@@ -91,17 +92,10 @@
           if (index == 3) this.ranking();
         },
         getBannerList() {
-          this.$http.get("http://localhost:3000/banner_list")
-            .then((data) => {
-              var result = data.body;
-              if (result.code == 200) {
-                this.bannerlist = result.data;
-              }
-              // 响应成功回调
-            }, (error) => {
-              // 响应错误回调
-              console.log("e:" + error);
-            })
+          const self=this;
+          servers.get('/banner_list',function (result) { 
+              self.bannerlist = result.data;
+           })
         },
         recommendSong() {
           this.$http.get("http://localhost:3000/recommendList")

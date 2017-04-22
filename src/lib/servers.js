@@ -4,7 +4,7 @@ import { Toast } from 'mint-ui';
 Vue.use(VueResource);
 export default {
   get(url, sucessCallback) {
-    Vue.http.get(url)
+    Vue.http.get('http://192.168.102.52:3000'+url)
       .then((data) => {
         var result = data.body;
         if (result.code == 200) {
