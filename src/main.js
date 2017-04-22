@@ -7,6 +7,7 @@ Vue.config.productionTip = false;
 import './lib/mui.min.css';
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
+import servers from './lib/servers'
 Vue.use(MintUI);
 Vue.use(VueResource);
 new Vue({

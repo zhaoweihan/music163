@@ -59,12 +59,13 @@ $baseColor:#ce3d3a;
 $fontColor:#333;
 $linkColor:#477aac;
 $basewhiteColor:#f2f4f5;
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "微软雅黑",'sans-serif';
-    color: $fontColor;
+    // color: $fontColor;
     -webkit-tap-highlight-color:transparent;
 }
 html {

@@ -22,36 +22,32 @@
   </mt-tab-container-item>
 </template>
 <script>
-    	export default {
-    	  data() {
-              return {
-                music163ranklist: []
-              }
-    	    
-    	  },
-    	  methods: {
-    	    ranking() {
-    	      this.$http.get("http://localhost:3000/top_list")
-    	        .then((data) => {
-    	          var result = data.body;
-    	          if (result.code == 200) {
-    	            this.music163ranklist = result.data[0].items;
-    	            this.music163ranklist.forEach((item, index) => {
-    	              item.cover = item.cover.replace("40y40", "120y120");
-    	            })
-    	            //TODO 排行榜 歌曲列表
-    	          }
-    	          // 响应成功回调
-    	        }, (error) => {
-    	          // 响应错误回调
-    	          console.log("e:" + error);
-    	        })
-    	    }
-    	  },
-          created(){
-              this.ranking();
-          }
-    	}
+import servers from '../../../lib/servers'
+import { Toast } from 'mint-ui';
+export default {
+  data() {
+    return {
+      music163ranklist: []
+    }
+
+  },
+  methods: {
+    ranking() {
+      const self = this;
+      servers.get("http://localhost:3000/top_list", function (result) {
+        self.music163ranklist = result.data[0].items;
+        self.music163ranklist.forEach((item, index) => {
+          item.cover = item.cover.replace("40y40", "120y120");
+        });
+
+      });
+    }
+  },
+  created() {
+    this.ranking();
+  }
+}
+
 
 </script>
 <style scoped lang="scss" scoped>
