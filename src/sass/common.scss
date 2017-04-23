@@ -1,102 +1,109 @@
-
 /*盒子特性*/
+
 @mixin box-sizing ($sizing) {
-    -webkit-box-sizing: $sizing;
-    -moz-box-sizing: $sizing;
-    box-sizing: $sizing;
+  -webkit-box-sizing: $sizing;
+  -moz-box-sizing: $sizing;
+  box-sizing: $sizing;
 }
+
 //css3 2d变换
 @mixin transform($tf) {
-    -webkit-transform: $tf;
-    -moz-transform: $tf;
-    -ms-transform: $tf;
-    transform: $tf;
+  -webkit-transform: $tf;
+  -moz-transform: $tf;
+  -ms-transform: $tf;
+  transform: $tf;
 }
+
 //css3 过渡
 @mixin transition($ts) {
-    -webkit-transition: $ts;
-    -moz-transition: $ts;
-    -ms-transition: $ts;
-    transition: $ts;
+  -webkit-transition: $ts;
+  -moz-transition: $ts;
+  -ms-transition: $ts;
+  transition: $ts;
 }
+
 //弹性布局flex
 @mixin flex {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
 }
+
 @mixin flex-1 {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
+
 @mixin user-select($us) {
-    -moz-user-select: $us;
-    /*火狐*/
-
-    -webkit-user-select: $us;
-    /*webkit浏览器*/
-
-    -ms-user-select: $us;
-    /*IE10*/
-
-    -khtml-user-select: $us;
-    /*早期浏览器*/
-
-    user-select: $us;
+  -moz-user-select: $us;
+  /*火狐*/
+  -webkit-user-select: $us;
+  /*webkit浏览器*/
+  -ms-user-select: $us;
+  /*IE10*/
+  -khtml-user-select: $us;
+  /*早期浏览器*/
+  user-select: $us;
 }
-@mixin ellipses{
-    text-overflow:ellipsis;
-    overflow: hidden;
-    // white-space:nowrap; 
+
+@mixin ellipses {
+  text-overflow: ellipsis;
+  overflow: hidden; // white-space:nowrap; 
 }
 
 $baseColor:#ce3d3a;
 $fontColor:#333;
 $linkColor:#477aac;
 $basewhiteColor:#f2f4f5;
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "微软雅黑",'sans-serif';
-    // color: $fontColor;
-    -webkit-tap-highlight-color:transparent;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "微软雅黑", 'sans-serif'; // color: $fontColor;
+  -webkit-tap-highlight-color: transparent;
 }
+
 html {
-    min-height: 100%;
+  min-height: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  body {
     max-width: 640px;
     margin: 0 auto;
-    body {
-        max-width: 640px;
-        margin: 0 auto;
-        font-size: 14px;
-        height: 100%;
-        font-size: 14px;
-        button,
-        input {
-            -webkit-appearance: none;
-            outline: none;
-        }
-        ol,
-        ul {
-            list-style: none;
-        }
-        a,
-        a:hover,
-        a:focus {
-            text-decoration: none;
-            color: $linkColor;
-            outline: none;
-        }
-        em,
-        i {
-              font-style: normal;
-        }
+    font-size: 14px;
+    height: 100%;
+    font-size: 14px;
+    button,
+    input {
+      -webkit-appearance: none;
+      outline: none;
     }
+    ol,
+    ul {
+      list-style: none;
+    }
+    a,
+    a:hover,
+    a:focus {
+      text-decoration: none;
+      color: $linkColor;
+      outline: none;
+    }
+    em,
+    i {
+      font-style: normal;
+    }
+    header.mint-header {
+      background: $baseColor;
+      font-size: 18px;
+    }
+    .bgwhite {
+      background: #fff;
+    }
+  }
 }

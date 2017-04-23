@@ -4,7 +4,7 @@
     <!--轮播图-->
     <mt-swipe :auto="3000" :style="{height:bannerHeight +'px'}" :prevent="true" :defaultIndex="0">
       <mt-swipe-item v-for="(item,index) in bannerlist" :key="index">
-        <a :href="item.url"><img v-lazy="item.picUrl" /></a>
+        <a :href="item.url"><img :src="item.picUrl" /></a>
       </mt-swipe-item>
     </mt-swipe>
     <!--icon导航-->
@@ -92,41 +92,25 @@
           if (index == 3) this.ranking();
         },
         getBannerList() {
-          const self=this;
-          servers.get('/banner_list',function (result) { 
-              self.bannerlist = result.data;
-           })
+          let self = this;
+          servers.get('/banner_list', function (result) {
+            self.bannerlist = result.data;
+          })
         },
         recommendSong() {
-          this.$http.get("http://localhost:3000/recommendList")
-            .then((data) => {
-              var result = data.body;
-              if (result.code == 200) {
-                for (let i = 0; i < result.data.length; i++) {
-                  result.data[i].cover = result.data[i].cover.replace("?param=140y140", "");
-                }
-                this.recommendSonglist = result.data;
-              }
-              // 响应成功回调
-            }, (error) => {
-              // 响应错误回调
-              console.log("e:" + error);
-            })
-
+          let self = this;
+          servers.get('/recommendList', function (result) {
+            for (let i = 0; i < result.data.length; i++) {
+              result.data[i].cover = result.data[i].cover.replace("?param=140y140", "");
+            }
+            self.recommendSonglist = result.data;
+          })
         },
         latestMusicList() {
-          this.$http.get("http://localhost:3000/latestMusicList")
-            .then((data) => {
-              var result = data.body;
-              if (result.code == 200) {
-                this.latestmusiclist = result.data;
-              }
-              // 响应成功回调
-            }, (error) => {
-              // 响应错误回调
-              console.log("e:" + error);
-            })
-
+          let self = this;
+          servers.get('/latestMusicList', function (result) {
+            self.latestmusiclist = result.data;
+          })
         }
       },
       watch: {
@@ -145,6 +129,7 @@
         this.latestMusicList();
       }
     }
+
 
 </script>
 <style scoped lang="scss">

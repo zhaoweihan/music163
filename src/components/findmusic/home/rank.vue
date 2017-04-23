@@ -36,24 +36,27 @@ export default {
   methods: {
     ranking() {
       let self = this;
-      servers.get("/top_list", function (result) {
+      servers.get("/top_list", function (result) {    
         self.music163ranklist = result.data[0].items;
-        self.music163ranklist.forEach((item, index) => {
+        self.music163ranklist.forEach(function(item, index) {
           item.cover = item.cover.replace("40y40", "120y120");
-          (function (ids,j) {
+          (function (ids, j) {
             //排行榜前三首歌
-            servers.get("/topSongList/" + ids, function (result) {
-              result.length = 3;
-              self.music163ranklist[j].songlist = result.data;
-              console.log(self.music163ranklist[j]);
+            servers.get("/topSongList/" + ids, function (a) {
+              a.length = 3;
+              self.music163ranklist[j].songlist = a.data;
             })
-          })(item.href.split("?id=")[1],index)
+          })(item.href.split("?id=")[1], index)
         });
 
       });
     }
   },
-
+  watch: {
+    music163ranklist(n, o) {
+      console.log(n);
+    }
+  },
   created() {
     this.ranking();
   }
@@ -61,8 +64,9 @@ export default {
 
 
 
+
 </script>
-<style scoped lang="scss" scoped>
+<style scoped lang="scss" >
 @import '../../../sass/common.scss';
 [data-class="tab-container-4"] {
   display: block !important;
