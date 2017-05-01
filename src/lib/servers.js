@@ -1,12 +1,16 @@
 import Vue from 'vue';
-import VueResource from 'resource';
-import { Toast } from 'mint-ui';
-Vue.use(VueResource);
+import axios from 'axios';
+import {Toast} from 'mint-ui';
+
+
+const baseUrl = 'http://localhost:3000';
+
 export default {
-  get(url, sucessCallback) {
-    Vue.http.get('http://localhost:3000'+url)
-      .then((data) => {
-        var result = data.body;
+  get(url, sucessCallback, dataParams) {
+    axios.get(baseUrl + url, {
+        params: dataParams
+      }).then(function (response) {
+        const result = response.data;
         if (result.code == 200) {
           sucessCallback(result);
         } else {
@@ -16,10 +20,28 @@ export default {
             duration: 3000
           });
         }
-        // 响应成功回调
-      }, (error) => {
-        // 响应错误回调
-        console.log("e:" + error);
       })
+      .catch(function (error) {
+        console.log("e:" + error);
+      });
+
+  },
+  post(url, sucessCallback, dataParams) {
+    axios.post(baseUrl + url, dataParams)
+      .then(function (response) {
+        const result = response.data;
+        if (result.code == 200) {
+          sucessCallback(result);
+        } else {
+          Toast({
+            message: result,
+            position: 'bottom',
+            duration: 3000
+          });
+        }
+      })
+      .catch(function (error) {
+        console.log("e:" + error);
+      });
   }
 }
