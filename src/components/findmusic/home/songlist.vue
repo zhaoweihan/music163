@@ -11,14 +11,14 @@
             <em>华语</em>
         </div>
         <ul>
-            <li v-for="songlistItem in 6">
+            <li v-for="(item, index) in allsonglist" :key="item.id" :data-id="item.id">
                 <a href="javascript:;">
                     <div class="imgbox">
-                        <img src="http://p1.music.126.net/AZV6R-vPdBFQU0F7GwSL5g==/109951162918679636.jpg">
-                        <span class="author"><i class="fa fa-user-o fa-fw"></i>托你<i class="fa fa-star-o fa-fw"></i></span>
-                        <span class="listenNum">100万</span>
+                        <img :src="item.picUrl">
+                        <span class="author"><i class="fa fa-user-o fa-fw"></i>{{item.auther}}<i class="fa fa-star-o fa-fw star" v-if="item.isStar==1"></i></span>
+                        <span class="listenNum">{{item.listenNum}}</span>
                     </div>
-                    <div class="songlist-name">[异地恋]熬过去就是一生一世[异地恋]熬过去就是一生一世[异地恋]熬过去就是一生一世[异地恋]熬过去就是一生一世[异地恋]熬过去就是一生一世</div>
+                    <div class="songlist-name">{{item.listName}}</div>
                 </a>
             </li>
         </ul>
@@ -26,12 +26,27 @@
   </mt-tab-container-item>
 </template>
 <script>
+import servers from '../../../lib/servers.js'
     export default{
         data(){
             return{
-                msg:"我是 歌单"
+                msg:"我是 歌单",
+                allsonglist:[]
             }
-            
+        },
+        methods:{
+            allsonglistInit(){
+                const self=this;
+                servers.get('/allsonglist',function(result){
+                    result.data.forEach(function(element,index) {
+                        element.picUrl+='?param=210y210';
+                    });
+                    self.allsonglist=result.data;
+                });
+            }
+        },
+        created(){
+            this.allsonglistInit();
         }
     }
 </script>
