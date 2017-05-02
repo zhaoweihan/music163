@@ -62,7 +62,7 @@
         <mt-cell title="主题皮肤" value="官方红" to="//github.com" is-link>
           <i class="fa fa-user-o fa-fw" slot="icon"></i>
         </mt-cell>
-        <mt-cell title="夜间模式"  to="//github.com" is-link>
+        <mt-cell title="夜间模式"  to="//github.com" >
           <i class="fa fa-lightbulb-o fa-fw" slot="icon"></i>
           <mt-switch v-model="value"></mt-switch>
         </mt-cell>   
