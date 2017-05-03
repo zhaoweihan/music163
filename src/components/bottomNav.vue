@@ -39,6 +39,7 @@
 	   max-width: 640px;
 	   font-size: 0;
 	   line-height: normal;
+		 z-index: 1000;
 	   a {
 	     $color: #ccc;
 	     @include flex-1;

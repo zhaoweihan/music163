@@ -17,6 +17,7 @@
                         <img :src="item.picUrl">
                         <span class="author"><i class="fa fa-user-o fa-fw"></i>{{item.auther}}<i class="fa fa-star-o fa-fw star" v-if="item.isStar==1"></i></span>
                         <span class="listenNum">{{item.listenNum}}</span>
+                        <span class="mask"></span>      
                     </div>
                     <div class="songlist-name">{{item.listName}}</div>
                 </a>
