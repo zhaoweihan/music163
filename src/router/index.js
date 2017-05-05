@@ -19,6 +19,7 @@ import anchorStation from '../components/findmusic/home/anchorStation';
 import Mymusic from '../components/findmusic/Mymusic';
 import Myzone from '../components/findmusic/Myzone';
 import Friends from '../components/findmusic/Friends';
+import SonglistInfo from '../components/findmusic/SonglistInfo';
 import Musicinfo from '../components/Musicinfo';
 
 
@@ -64,6 +65,10 @@ export default new Router({
         {
           path: 'myzone',
           component: Myzone
+        },
+         {
+          path: 'songlistinfo/:id',
+          component: SonglistInfo
         }
       ]
     },
