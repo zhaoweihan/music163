@@ -1,7 +1,7 @@
 <template>
   <div class="coverbg">
     <!--Header-->
-    <mt-header fixed title="歌单">
+    <mt-header fixed :title="headerTitle">
       <router-link to="/bottomnav" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
@@ -16,56 +16,76 @@
         </div>
         <div class="info">
           <p class="listname">{{infoData.title}}</p>
-          <p class="owner"><img :src="infoData.ownerPic">{{infoData.owner}} <i class="fa fa-angle-right"></i></p>
+          <p class="owner">
+            <img :src="infoData.ownerPic">{{infoData.owner}}
+            <i class="fa fa-angle-right"></i>
+          </p>
         </div>
       </div>
       <div class="buttonarea">
-        <a href="javascript:;"><i class="fa fa-calendar-plus-o"></i>{{infoData.collection_count}}</a>
-        <a href="javascript:;"><i class="fa fa-comment"></i>{{infoData.comment_count}}</a>
-        <a href="javascript:;"><i class="fa fa-share-square-o"></i>{{infoData.share_count}}</a>
-        <a href="javascript:;"><i class="fa fa-cloud-download"></i>下载</a>
+        <a href="javascript:;">
+          <i class="fa fa-calendar-plus-o"></i>{{infoData.collection_count}}</a>
+        <a href="javascript:;">
+          <i class="fa fa-comment"></i>{{infoData.comment_count}}</a>
+        <a href="javascript:;">
+          <i class="fa fa-share-square-o"></i>{{infoData.share_count}}</a>
+        <a href="javascript:;">
+          <i class="fa fa-cloud-download"></i>下载</a>
       </div>
     </div>
     <!--歌曲列表-->
-    <div class="songlist">
+    <div class="songlist" :class="{stickUp:isStickUp}">
       <div class="playAll">
-        <i class="fa fa-play-circle-o fa-fw playIcon"></i> 播放全部<em>（共{{songNum}}首）</em>
-        <span><i class="mui-icon mui-icon-list chooseMore"></i>多选</span>
+        <i class="fa fa-play-circle-o fa-fw playIcon"></i> 播放全部
+        <em>（共{{songNum}}首）</em>
+        <span>
+          <i class="mui-icon mui-icon-list chooseMore"></i>多选</span>
       </div>
       <transition-group name="slide">
         <!--<i class='fa fa-ellipsis-h'></i>i-->
-        <mt-cell-swipe v-for="(song,index) in songlist" :title="(index+1)+' '+song.name"  :label="song.artists[0].name+'-'+song.album.name" :key="song.id" :right="[
-           {
-             content: '删除',
-             style: { background: '#ce3d3a', color: '#fff' },
-             handler: () => deleteSonglistItem(song.id)
-           }]">
-            <i class='fa fa-ellipsis-h'></i>
+        <mt-cell-swipe v-for="(song,index) in songlist" :title="(index+1)+' '+song.name" :label="song.artists[0].name+'-'+song.album.name" :key="song.id" :right="[
+               {
+                 content: '删除',
+                 style: { background: '#ce3d3a', color: '#fff' },
+                 handler: () => deleteSonglistItem(song.id)
+               }]">
+          <i class='fa fa-ellipsis-h' @click="showsheet(song)"></i>
         </mt-cell-swipe>
       </transition-group>
-
+  
     </div>
+    <mt-popup v-model="popupVisible" position="bottom" class="songlistItemPopup">
+      <songmenu :song-menu-data="songMenuPropData" :songname="headerTitle"></songmenu>
+    </mt-popup>
   </div>
-
 </template>
 <script>
   import servers from '../../lib/servers.js';
-  import {
-    Toast
-  } from 'mint-ui';
+  
+  import { Toast } from 'mint-ui';
+  import songmenu from './songlistinfo/songmenu'
+
   export default {
     data() {
       return {
+        headerTitle:"歌单",
         infoData: {},
         songNum: 0,
-        songlist: []
+        songlist: [],
+        popupVisible: false,
+        isStickUp: false,
+        songMenuPropData:{
+          namn:"",
+          artistsName:"",
+          albumName:""
+        }
       }
     },
     methods: {
       getinfo() {
         const self = this;
         servers.get('/playlist/' + self.$route.params.id, function (result) {
-          result.data.cover += result.data.cover + "??param=144y144"
+          result.data.cover += result.data.cover + "?param=144y144"
           self.infoData = result.data
 
         })
@@ -76,7 +96,7 @@
           console.log(result)
           self.songNum = result.data.length;
           self.songlist = result.data;
-        })
+        });
       },
       deleteSonglistItem(id) {
         const self = this;
@@ -85,19 +105,47 @@
             self.songlist.splice(i, 1);
           }
         });
-
-
+      },
+      showsheet(item) {
+        console.log(item)
+        this.songMenuPropData.name = item.name;//歌曲名字
+        var artistsName=[];
+        item.artists.forEach(function (ar,ai) {
+          artistsName.push(ar.name);
+        })
+        this.songMenuPropData.artistsName = artistsName.join("/");//歌手
+        this.songMenuPropData.albumName = item.album.name;//专辑名字
+        this.popupVisible = true;
+      },
+      scrollStyle() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+          scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+          scrollTop = document.body.scrollTop;
+        }
+        if (scrollTop > 215) {
+          this.isStickUp = true;
+          this.headerTitle=this.infoData.title;
+        } else {
+          this.isStickUp = false;
+          this.headerTitle='歌单'
+        }
       }
     },
+    components:{songmenu},
     created() {
       this.getinfo();
       this.getSonglist();
+    },
+    mounted() {
+      var self = this;
+      window.addEventListener('scroll', this.scrollStyle)
     }
   }
 
 </script>
 <style lang="scss">
-  @import '../../sass/common';
-  @import '../../sass/songlistinfo';
-
+@import '../../sass/common';
+@import '../../sass/songlistinfo';
 </style>

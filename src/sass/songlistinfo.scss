@@ -101,11 +101,12 @@
   }
   .songlist {
     background: #fff;
+    padding-bottom: 50px;
     &.stickUp {
       padding-top: 40px;
       .playAll {
         position: fixed;
-        top: 265px;
+        top: 40px;
         left: 0;
         width: 100%;
         z-index: 10;
@@ -139,5 +140,10 @@
         }
       }
     }
+  }
+  //底部弹出功能
+  .songlistItemPopup{
+    width: 100%;
+    background: #fff;
   }
 }
