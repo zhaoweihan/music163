@@ -54,7 +54,7 @@
 @mixin ellipses {
   text-overflow: ellipsis;
   overflow: hidden; 
-  // white-space:nowrap; 
+  // white-space:nowrap;
 }
 
 $baseColor:#ce3d3a;
