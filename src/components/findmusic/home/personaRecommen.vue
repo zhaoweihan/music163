@@ -4,7 +4,9 @@
     <!--轮播图-->
     <mt-swipe :auto="3000" :style="{height:bannerHeight +'px'}" :prevent="true" :defaultIndex="0">
       <mt-swipe-item v-for="(item,index) in bannerlist" :key="index">
-        <a :href="item.url"><img :src="item.picUrl" /></a>
+        <a :href="item.url">
+          <img :src="item.picUrl" />
+        </a>
       </mt-swipe-item>
     </mt-swipe>
     <!--icon导航-->
@@ -24,21 +26,29 @@
     </div>
     <!--推荐歌单-->
     <div class="recommendSonglist">
-      <div class="title"><i class="mui-icon mui-icon-navigate"></i><span>推荐歌单</span><em>更多</em></div>
+      <div class="title">
+        <i class="mui-icon mui-icon-navigate"></i>
+        <span>推荐歌单</span>
+        <em><router-link to="/bottomnav/songlist">更多</router-link></em>
+      </div>
       <div class="songlist">
-        <div class="songbox" v-for="(item,index) in recommendSonglist" v-if="index <	 6">
-          <router-link :to="'/bottomnav/songlistinfo/'+item.id">
-            <i>{{item.num}}</i>
-            <div class="imgbox"><img v-lazy="item.cover" /></div>
-            <p>{{item.title}}</p>
-            </router-link>
+        <div class="songbox" v-for="(item,index) in recommendSonglist" v-if="index <	 6" @click="toSonglist(item.type,item.id)">
+          <i>{{item.num}}</i>
+          <div class="imgbox">
+            <img v-lazy="item.cover" />
+          </div>
+          <p>{{item.title}}</p>
         </div>
   
       </div>
     </div>
     <!--独家放送-->
     <div class="exclusiveDelivery">
-      <div class="title"><i class="mui-icon mui-icon-navigate"></i><span>独家放送</span><em>更多</em></div>
+      <div class="title">
+        <i class="mui-icon mui-icon-navigate"></i>
+        <span>独家放送</span>
+        <em>更多</em>
+      </div>
       <div class="firstfloor">
         <div class="firstfloorBox left">
           <img src="../../../assets/djfs/djfs1.png" />
@@ -56,13 +66,21 @@
     </div>
     <!--最新音乐-->
     <div class="latestMusic recommendSonglist">
-      <div class="title"><i class="mui-icon mui-icon-navigate"></i><span>最新音乐</span><em>更多</em></div>
+      <div class="title">
+        <i class="mui-icon mui-icon-navigate"></i>
+        <span>最新音乐</span>
+        <em>更多</em>
+      </div>
       <div class="songlist">
         <div class="songbox" v-for="(item,index) in latestmusiclist">
-          <div class="imgbox"><img v-lazy="item.picUrl" /></div>
-          <p>{{item.albumName}}
-            <span>{{item.singerName}}</span>
-          </p>
+          <!--<router-link :to="javascript:;">-->
+            <div class="imgbox">
+              <img v-lazy="item.picUrl" />
+            </div>
+            <p>{{item.albumName}}
+              <span>{{item.singerName}}</span>
+            </p>
+          <!--</router-link>-->
         </div>
   
       </div>
@@ -72,6 +90,7 @@
 
 <script>
 import Vue from 'vue';
+import router from '../../../router'
 import servers from '../../../lib/servers'
 export default {
   data() {
@@ -93,12 +112,14 @@ export default {
       this.tabActive = "tab-container" + (index + 1);
       if (index == 3) this.ranking();
     },
+    //主页banner
     getBannerList() {
       let self = this;
       servers.get('/banner_list', function (result) {
         self.bannerlist = result.data;
       })
     },
+    // 推荐歌单
     recommendSong() {
       let self = this;
       servers.get('/recommendList', function (result) {
@@ -108,6 +129,18 @@ export default {
         self.recommendSonglist = result.data;
       })
     },
+    //推荐歌单点击跳转
+    toSonglist(type,id){
+      if(type==13){
+        router.push('/bottomnav/songlistinfo/'+id);
+      }else if(type==17){
+        //router.push(n)
+      }
+
+      
+       
+    },
+    //最新音乐
     latestMusicList() {
       let self = this;
       servers.get('/latestMusicList', function (result) {
@@ -129,6 +162,13 @@ export default {
     this.getBannerList();
     this.recommendSong();
     this.latestMusicList();
+  },
+  filters: {
+    typeClassification(value,type){
+      if(type==17){
+          return value='javascript:;'
+      }
+    }
   }
 }
 

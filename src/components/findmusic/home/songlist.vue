@@ -12,7 +12,7 @@
         </div>
         <ul>
             <li v-for="(item, index) in allsonglist" :key="item.id" :data-id="item.id">
-                <a href="javascript:;">
+                    <router-link :to="'/bottomnav/songlistinfo/'+item.id">
                     <div class="imgbox">
                         <img :src="item.picUrl">
                         <span class="author"><i class="fa fa-user-o fa-fw"></i>{{item.auther}}<i class="fa fa-star-o fa-fw star" v-if="item.isStar==1"></i></span>
@@ -20,7 +20,7 @@
                         <span class="mask"></span>      
                     </div>
                     <div class="songlist-name">{{item.listName}}</div>
-                </a>
+                </router-link>
             </li>
         </ul>
     </div>

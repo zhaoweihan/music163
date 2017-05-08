@@ -10,7 +10,7 @@
     <!--歌单信息-->
     <div class="songlistinfo">
       <div class="search" v-show="false"></div>
-      <div class="middleinfo">
+      <div class="middleinfo" @click="showInfoPopup()">
         <div class="imgbox">
           <img :src="infoData.cover" alt="歌单封面">
         </div>
@@ -43,7 +43,7 @@
       </div>
       <transition-group name="slide">
         <!--<i class='fa fa-ellipsis-h'></i>i-->
-        <mt-cell-swipe v-for="(song,index) in songlist" :title="(index+1)+' '+song.name" :label="song.artists[0].name+'-'+song.album.name" :key="song.id" :right="[
+        <mt-cell-swipe v-for="(song,index) in songlist" :title="(index+1)+' '+song.name+song.id" :label="song.artists[0].name+'-'+song.album.name" :key="song.id" :right="[
                {
                  content: '删除',
                  style: { background: '#ce3d3a', color: '#fff' },
@@ -54,16 +54,22 @@
       </transition-group>
   
     </div>
-    <mt-popup v-model="popupVisible" position="bottom" class="songlistItemPopup">
+    <!--歌单详情介绍弹出层-->
+    <mt-popup v-model="songlistInfoVisible" pop-transition="popup-fade" class="songlistInfoPopup" >
+      <infodes :infodesdata="infoData" v-on:closepopup="closePopupfn"></infodes>
+    </mt-popup>
+    <!--歌曲功能菜单-->
+    <mt-popup v-model="songlistItemVisible" position="bottom" class="songlistItemPopup">
       <songmenu :song-menu-data="songMenuPropData" :songname="headerTitle"></songmenu>
     </mt-popup>
   </div>
 </template>
 <script>
   import servers from '../../lib/servers.js';
-  
   import { Toast } from 'mint-ui';
-  import songmenu from './songlistinfo/songmenu'
+
+  import songmenu from './songlistinfo/songmenu';
+  import infodes from './songlistinfo/infoDes'
 
   export default {
     data() {
@@ -72,7 +78,8 @@
         infoData: {},
         songNum: 0,
         songlist: [],
-        popupVisible: false,
+        songlistItemVisible: false,//控制歌曲操作菜单
+        songlistInfoVisible:false,//控制歌单详情介绍弹出层
         isStickUp: false,
         songMenuPropData:{
           namn:"",
@@ -85,6 +92,7 @@
       getinfo() {
         const self = this;
         servers.get('/playlist/' + self.$route.params.id, function (result) {
+          console.log(result)
           result.data.cover += result.data.cover + "?param=144y144"
           self.infoData = result.data
 
@@ -93,7 +101,7 @@
       getSonglist() {
         const self = this;
         servers.get('/song_list/' + self.$route.params.id, function (result) {
-          console.log(result)
+          // console.log(result)
           self.songNum = result.data.length;
           self.songlist = result.data;
         });
@@ -107,7 +115,7 @@
         });
       },
       showsheet(item) {
-        console.log(item)
+        // console.log(item)
         this.songMenuPropData.name = item.name;//歌曲名字
         var artistsName=[];
         item.artists.forEach(function (ar,ai) {
@@ -115,7 +123,13 @@
         })
         this.songMenuPropData.artistsName = artistsName.join("/");//歌手
         this.songMenuPropData.albumName = item.album.name;//专辑名字
-        this.popupVisible = true;
+        this.songlistItemVisible = true;
+      },
+      showInfoPopup(){
+        this.songlistInfoVisible = true;
+      },
+      closePopupfn(){
+        this.songlistInfoVisible = false;
       },
       scrollStyle() {
         var scrollTop = 0;
@@ -133,7 +147,7 @@
         }
       }
     },
-    components:{songmenu},
+    components:{songmenu,infodes},
     created() {
       this.getinfo();
       this.getSonglist();

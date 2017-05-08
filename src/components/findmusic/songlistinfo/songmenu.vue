@@ -63,6 +63,6 @@
                
             }
         },
-       props: ['songMenuData','songname'],
+       props: ['songMenuData'],
     }
 </script>
