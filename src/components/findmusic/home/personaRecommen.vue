@@ -114,19 +114,17 @@ export default {
     },
     //主页banner
     getBannerList() {
-      let self = this;
-      servers.get('/banner_list', function (result) {
-        self.bannerlist = result.data;
+      servers.get('/banner_list', result => {
+        this.bannerlist = result.data;
       })
     },
     // 推荐歌单
     recommendSong() {
-      let self = this;
-      servers.get('/recommendList', function (result) {
+      servers.get('/recommendList', result=> {
         for (let i = 0; i < result.data.length; i++) {
           result.data[i].cover = result.data[i].cover.replace("?param=140y140", "");
         }
-        self.recommendSonglist = result.data;
+        this.recommendSonglist = result.data;
       })
     },
     //推荐歌单点击跳转
@@ -142,9 +140,8 @@ export default {
     },
     //最新音乐
     latestMusicList() {
-      let self = this;
-      servers.get('/latestMusicList', function (result) {
-        self.latestmusiclist = result.data;
+      servers.get('/latestMusicList', result=> {
+        this.latestmusiclist = result.data;
       })
     }
   },

@@ -50,11 +50,17 @@
   /*早期浏览器*/
   user-select: $us;
 }
+// 毛玻璃效果
+@mixin filter($val) {
+  -webkit-filter: blur($val);
+     -moz-filter: blur($val);
+      -ms-filter: blur($val);
+          filter: blur($val);
+}
 
 @mixin ellipses {
   text-overflow: ellipsis;
-  overflow: hidden; 
-  // white-space:nowrap;  
+  overflow: hidden; // white-space:nowrap;  
 }
 
 $baseColor:#ce3d3a;
@@ -105,6 +111,9 @@ html {
     }
     .bgwhite {
       background: #fff;
+    } // 进度条颜色
+    .mt-progress-progress {
+      background: $baseColor;
     }
   }
 }

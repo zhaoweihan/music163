@@ -18,7 +18,7 @@
                 </span>
             </div>
             <div class="saveCover">
-                <a :href="infodesdata.cover|coverDownload" :download="infodesdata.title">保存封面</a>
+                <a :href="infodesdata.cover|coverDownload" :download="infodesdata.cover|coverDownload">保存封面</a>
             </div>
         </div>
     </div>
@@ -55,7 +55,8 @@ export default{
         },
         coverDownload(value){
             if(value){
-                var val=value.split("?param=")[0]
+                console.log(value.split("http://"))
+                var val=value.split("http://")[1]
                 return val;
             }
         }

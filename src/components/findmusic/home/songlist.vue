@@ -14,7 +14,7 @@
             <li v-for="(item, index) in allsonglist" :key="item.id" :data-id="item.id">
                     <router-link :to="'/bottomnav/songlistinfo/'+item.id">
                     <div class="imgbox">
-                        <img :src="item.picUrl">
+                        <img  v-lazy="item.picUrl">
                         <span class="author"><i class="fa fa-user-o fa-fw"></i>{{item.auther}}<i class="fa fa-star-o fa-fw star" v-if="item.isStar==1"></i></span>
                         <span class="listenNum">{{item.listenNum}}</span>
                         <span class="mask"></span>      
@@ -37,12 +37,11 @@ import servers from '../../../lib/servers.js'
         },
         methods:{
             allsonglistInit(){
-                const self=this;
-                servers.get('/allsonglist',function(result){
+                servers.get('/allsonglist',result=>{
                     result.data.forEach(function(element,index) {
                         element.picUrl+='?param=210y210';
                     });
-                    self.allsonglist=result.data;
+                    this.allsonglist=result.data;
                 });
             }
         },

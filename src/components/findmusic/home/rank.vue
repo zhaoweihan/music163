@@ -35,16 +35,15 @@ export default {
   },
   methods: {
     ranking() {
-      let self = this;
-      servers.get("/top_list", function (result) {    
-        self.music163ranklist = result.data[0].items;
-        self.music163ranklist.forEach(function(item, index) {
+      servers.get("/top_list", result => {    
+        this.music163ranklist = result.data[0].items;
+        this.music163ranklist.forEach(function(item, index) {
           item.cover = item.cover.replace("40y40", "120y120");
           (function (ids, j) {
             //排行榜前三首歌
             servers.get("/topSongList/" + ids, function (a) {
               a.length = 3;
-              self.music163ranklist[j].songlist = a.data;
+              this.music163ranklist[j].songlist = a.data;
             })
           })(item.href.split("?id=")[1], index)
         });
