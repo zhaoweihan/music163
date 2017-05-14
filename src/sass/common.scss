@@ -50,14 +50,53 @@
   /*早期浏览器*/
   user-select: $us;
 }
+
 // 毛玻璃效果
 @mixin filter($val) {
   -webkit-filter: blur($val);
-     -moz-filter: blur($val);
-      -ms-filter: blur($val);
-          filter: blur($val);
+  -moz-filter: blur($val);
+  -ms-filter: blur($val);
+  filter: blur($val);
 }
 
+//制定动画
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+//动画调用如下
+/*
+@include keyframes(move-the-object) {
+    0%   { 
+        transform: translateX(0);
+    }
+    100% { 
+        transform: translateX(200px); 
+    }
+}
+*/
+
+// 执行动画
+@mixin animate($val) {
+  animation: $val;
+  -webkit-animation: $val;
+}
+// 暂停动画
+@mixin animation-play-state($val){
+          animation-play-state:$val;
+  -webkit-animation-play-state:$val;
+}
 @mixin ellipses {
   text-overflow: ellipsis;
   overflow: hidden; // white-space:nowrap;  
