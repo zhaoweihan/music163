@@ -43,7 +43,7 @@
       </div>
       <transition-group name="slide">
         <!--<i class='fa fa-ellipsis-h'></i>i-->
-        <mt-cell-swipe v-for="(song,index) in songlist" :title="(index+1)+' '+song.name+song.id" :label="song.artists[0].name+'-'+song.album.name" :key="song.id" :right="[
+        <mt-cell-swipe v-for="(song,index) in songlist" :to="'/musicinfo/'+song.id" :title="(index+1)+' '+song.name" :label="song.artists[0].name+'-'+song.album.name" :key="song.id" :right="[
                {
                  content: '删除',
                  style: { background: '#ce3d3a', color: '#fff' },

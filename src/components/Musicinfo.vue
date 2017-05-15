@@ -21,15 +21,19 @@
 		</div>
 		<div class="doArea" :style="{height:doAreaComputed}">
 			<div class="top">
+				<!--喜欢-->
 				<a href="javascript:;">
-					<i class="fa fa-heart-o"></i>
+					<i class="fa" :class="{'fa-heart':islike,'fa-heart-o':!islike,'heartred':islike}" @click="isLike()"></i>
 				</a>
+				<!--下载-->
 				<a href="javascript:;">
 					<i class="fa fa-download"></i>
 				</a>
+				<!--评论-->
 				<a href="javascript:;">
 					<i class="fa fa-comment-o"></i>
 				</a>
+				<!--其他-->
 				<a href="javascript:;">
 					<i class="fa fa-ellipsis-h"></i>
 				</a>
@@ -65,6 +69,7 @@
 import servers from '../lib/servers';
 import playIcon from '../assets/icon/play.svg';
 import pauseIcon from '../assets/icon/pause.svg';
+import { Toast } from 'mint-ui';
 export default {
 	name: 'musicinfo',
 	data() {
@@ -82,7 +87,8 @@ export default {
 			playIcon: playIcon,//播放、暂停按妞icon
 			progressVal:0,//当前播放进度条
 			progress:null,//动态进度条计时器
-			playNowTime:"00:00"//当前播放时间
+			playNowTime:"00:00",//当前播放时间
+			islike:false
 		}
 	},
 	methods: {
@@ -112,10 +118,17 @@ export default {
 				},1000)
 				auiodDom.play();
 				this.playStatus=true;
-
 			}
-			
-
+		},
+		// 喜欢
+		isLike(){
+			if(this.islike){
+				this.islike=false
+				Toast('已取消喜欢');
+			}else{
+				this.islike=true;
+				Toast('已添加到我喜欢的音乐');
+			}
 		}
 	},
 	computed: {
@@ -191,7 +204,7 @@ export default {
 			background: url(../assets/coverall.png) no-repeat;
 			background-size: 532px 2093px;
 			background-position: -200px -815px;
-			@include animate(whirl 3s linear  infinite);
+			@include animate(whirl 5s linear  infinite);
 			&.pause{
 				@include animation-play-state(paused);
 			}
@@ -226,6 +239,9 @@ export default {
 				i {
 					color: #fff;
 					font-size: 22px;
+					&.heartred{
+						color: $baseColor;
+					}
 				}
 				&:last-of-type i {
 					@include transform(rotate(90deg));
