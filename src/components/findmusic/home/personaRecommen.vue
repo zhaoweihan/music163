@@ -29,7 +29,9 @@
       <div class="title">
         <i class="mui-icon mui-icon-navigate"></i>
         <span>推荐歌单</span>
-        <em><router-link to="/bottomnav/songlist">更多</router-link></em>
+        <em>
+          <router-link to="/bottomnav/songlist">更多</router-link>
+        </em>
       </div>
       <div class="songlist">
         <div class="songbox" v-for="(item,index) in recommendSonglist" v-if="index <	 6" @click="toSonglist(item.type,item.id)">
@@ -74,12 +76,12 @@
       <div class="songlist">
         <div class="songbox" v-for="(item,index) in latestmusiclist">
           <!--<router-link :to="javascript:;">-->
-            <div class="imgbox">
-              <img v-lazy="item.picUrl" />
-            </div>
-            <p>{{item.albumName}}
-              <span>{{item.singerName}}</span>
-            </p>
+          <div class="imgbox">
+            <img v-lazy="item.picUrl" />
+          </div>
+          <p>{{item.albumName}}
+            <span>{{item.singerName}}</span>
+          </p>
           <!--</router-link>-->
         </div>
   
@@ -120,7 +122,7 @@ export default {
     },
     // 推荐歌单
     recommendSong() {
-      servers.get('/recommendList', result=> {
+      servers.get('/recommendList', result => {
         for (let i = 0; i < result.data.length; i++) {
           result.data[i].cover = result.data[i].cover.replace("?param=140y140", "");
         }
@@ -128,19 +130,19 @@ export default {
       })
     },
     //推荐歌单点击跳转
-    toSonglist(type,id){
-      if(type==13){
-        router.push('/bottomnav/songlistinfo/'+id);
-      }else if(type==17){
+    toSonglist(type, id) {
+      if (type == 13) {
+        router.push('/bottomnav/songlistinfo/' + id);
+      } else if (type == 17) {
         //router.push(n)
       }
 
-      
-       
+
+
     },
     //最新音乐
     latestMusicList() {
-      servers.get('/latestMusicList', result=> {
+      servers.get('/latestMusicList', result => {
         this.latestmusiclist = result.data;
       })
     }
@@ -161,9 +163,9 @@ export default {
     this.latestMusicList();
   },
   filters: {
-    typeClassification(value,type){
-      if(type==17){
-          return value='javascript:;'
+    typeClassification(value, type) {
+      if (type == 17) {
+        return value = 'javascript:;'
       }
     }
   }

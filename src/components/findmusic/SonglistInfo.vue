@@ -121,28 +121,28 @@
         item.artists.forEach(function (ar,ai) {
           artistsName.push(ar.name);
         })
-        this.songMenuPropData.artistsName = artistsName.join("/");//歌手
-        this.songMenuPropData.albumName = item.album.name;//专辑名字
-        this.songlistItemVisible = true;
+        this.songMenuPropData.artistsName = artistsName.join("/")//歌手
+        this.songMenuPropData.albumName = item.album.name //专辑名字
+        this.songlistItemVisible = true
       },
       showInfoPopup(){
-        this.songlistInfoVisible = true;
+        this.songlistInfoVisible = true
       },
       closePopupfn(){
-        this.songlistInfoVisible = false;
+        this.songlistInfoVisible = false
       },
       scrollStyle() {
         var scrollTop = 0;
         if (document.documentElement && document.documentElement.scrollTop) {
           scrollTop = document.documentElement.scrollTop;
         } else if (document.body) {
-          scrollTop = document.body.scrollTop;
+          scrollTop = document.body.scrollTop
         }
         if (scrollTop > 215) {
-          this.isStickUp = true;
-          this.headerTitle=this.infoData.title;
+          this.isStickUp = true
+          this.headerTitle=this.infoData.title
         } else {
-          this.isStickUp = false;
+          this.isStickUp = false
           this.headerTitle='歌单'
         }
       }
