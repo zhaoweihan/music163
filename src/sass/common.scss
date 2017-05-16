@@ -89,13 +89,14 @@
 
 // 执行动画
 @mixin animate($val) {
-  animation: $val;
   -webkit-animation: $val;
+          animation: $val;
+  
 }
 // 暂停动画
 @mixin animation-play-state($val){
-          animation-play-state:$val;
   -webkit-animation-play-state:$val;
+          animation-play-state:$val;
 }
 @mixin ellipses {
   text-overflow: ellipsis;
