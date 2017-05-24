@@ -76,6 +76,7 @@
 }
 
 //动画调用如下
+
 /*
 @include keyframes(move-the-object) {
     0%   { 
@@ -90,14 +91,15 @@
 // 执行动画
 @mixin animate($val) {
   -webkit-animation: $val;
-          animation: $val;
-  
+  animation: $val;
 }
+
 // 暂停动画
-@mixin animation-play-state($val){
-  -webkit-animation-play-state:$val;
-          animation-play-state:$val;
+@mixin animation-play-state($val) {
+  -webkit-animation-play-state: $val;
+  animation-play-state: $val;
 }
+
 @mixin ellipses {
   text-overflow: ellipsis;
   overflow: hidden; // white-space:nowrap;  
@@ -154,6 +156,14 @@ html {
     } // 进度条颜色
     .mt-progress-progress {
       background: $baseColor;
+    }
+    // 页头右侧 音乐播放 icon
+    .mint-header {
+      .frequency {
+        width: 26px;
+        height: 26px;
+        margin-top: 2px;
+      }
     }
   }
 }
