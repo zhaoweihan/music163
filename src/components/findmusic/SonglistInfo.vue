@@ -2,9 +2,7 @@
   <div class="coverbg">
     <!--Header-->
     <mt-header fixed :title="headerTitle">
-      <router-link to="/bottomnav" slot="left">
-        <mt-button icon="back"></mt-button>
-      </router-link>
+      <mt-button icon="back" slot="left" @click="goBack()"></mt-button>
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
     <!--歌单信息-->
@@ -44,18 +42,18 @@
       <transition-group name="slide">
         <!--<i class='fa fa-ellipsis-h'></i>i-->
         <mt-cell-swipe v-for="(song,index) in songlist" :to="'/musicinfo/'+song.id" :title="(index+1)+' '+song.name" :label="song.artists[0].name+'-'+song.album.name" :key="song.id" :right="[
-               {
-                 content: '删除',
-                 style: { background: '#ce3d3a', color: '#fff' },
-                 handler: () => deleteSonglistItem(song.id)
-               }]">
+                 {
+                   content: '删除',
+                   style: { background: '#ce3d3a', color: '#fff' },
+                   handler: () => deleteSonglistItem(song.id)
+                 }]">
           <i class='fa fa-ellipsis-h' @click="showsheet(song)"></i>
         </mt-cell-swipe>
       </transition-group>
   
     </div>
     <!--歌单详情介绍弹出层-->
-    <mt-popup v-model="songlistInfoVisible" pop-transition="popup-fade" class="songlistInfoPopup" >
+    <mt-popup v-model="songlistInfoVisible" pop-transition="popup-fade" class="songlistInfoPopup">
       <infodes :infodesdata="infoData" v-on:closepopup="closePopupfn"></infodes>
     </mt-popup>
     <!--歌曲功能菜单-->
@@ -65,98 +63,101 @@
   </div>
 </template>
 <script>
-  import servers from '../../lib/servers.js';
-  import { Toast } from 'mint-ui';
+import servers from '../../lib/servers.js';
+import { Toast } from 'mint-ui';
 
-  import songmenu from './songlistinfo/songmenu';
-  import infodes from './songlistinfo/infoDes'
+import songmenu from './songlistinfo/songmenu';
+import infodes from './songlistinfo/infoDes'
 
-  export default {
-    data() {
-      return {
-        headerTitle:"歌单",
-        infoData: {},
-        songNum: 0,
-        songlist: [],
-        songlistItemVisible: false,//控制歌曲操作菜单
-        songlistInfoVisible:false,//控制歌单详情介绍弹出层
-        isStickUp: false,
-        songMenuPropData:{
-          namn:"",
-          artistsName:"",
-          albumName:""
-        }
+export default {
+  data() {
+    return {
+      headerTitle: "歌单",
+      infoData: {},
+      songNum: 0,
+      songlist: [],
+      songlistItemVisible: false,//控制歌曲操作菜单
+      songlistInfoVisible: false,//控制歌单详情介绍弹出层
+      isStickUp: false,
+      songMenuPropData: {
+        namn: "",
+        artistsName: "",
+        albumName: ""
       }
-    },
-    methods: {
-      getinfo() {
-        const self = this;
-        servers.get('/playlist/' + self.$route.params.id, function (result) {
-          console.log(result)
-          result.data.cover += result.data.cover + "?param=144y144"
-          self.infoData = result.data
-
-        })
-      },
-      getSonglist() {
-        const self = this;
-        servers.get('/song_list/' + self.$route.params.id, function (result) {
-          // console.log(result)
-          self.songNum = result.data.length;
-          self.songlist = result.data;
-        });
-      },
-      deleteSonglistItem(id) {
-        const self = this;
-        self.songlist.forEach(function (element, i) {
-          if (id == element.id) {
-            self.songlist.splice(i, 1);
-          }
-        });
-      },
-      showsheet(item) {
-        // console.log(item)
-        this.songMenuPropData.name = item.name;//歌曲名字
-        var artistsName=[];
-        item.artists.forEach(function (ar,ai) {
-          artistsName.push(ar.name);
-        })
-        this.songMenuPropData.artistsName = artistsName.join("/")//歌手
-        this.songMenuPropData.albumName = item.album.name //专辑名字
-        this.songlistItemVisible = true
-      },
-      showInfoPopup(){
-        this.songlistInfoVisible = true
-      },
-      closePopupfn(){
-        this.songlistInfoVisible = false
-      },
-      scrollStyle() {
-        var scrollTop = 0;
-        if (document.documentElement && document.documentElement.scrollTop) {
-          scrollTop = document.documentElement.scrollTop;
-        } else if (document.body) {
-          scrollTop = document.body.scrollTop
-        }
-        if (scrollTop > 215) {
-          this.isStickUp = true
-          this.headerTitle=this.infoData.title
-        } else {
-          this.isStickUp = false
-          this.headerTitle='歌单'
-        }
-      }
-    },
-    components:{songmenu,infodes},
-    created() {
-      this.getinfo();
-      this.getSonglist();
-    },
-    mounted() {
-      var self = this;
-      window.addEventListener('scroll', this.scrollStyle)
     }
+  },
+  methods: {
+    getinfo() {
+      const self = this;
+      servers.get('/playlist/' + self.$route.params.id, function (result) {
+        // console.log(result)
+        result.data.cover += result.data.cover + "?param=144y144"
+        self.infoData = result.data
+
+      })
+    },
+    getSonglist() {
+      const self = this;
+      servers.get('/song_list/' + self.$route.params.id, function (result) {
+        // console.log(result)
+        self.songNum = result.data.length;
+        self.songlist = result.data;
+      });
+    },
+    deleteSonglistItem(id) {
+      const self = this;
+      self.songlist.forEach(function (element, i) {
+        if (id == element.id) {
+          self.songlist.splice(i, 1);
+        }
+      });
+    },
+    showsheet(item) {
+      // console.log(item)
+      this.songMenuPropData.name = item.name;//歌曲名字
+      var artistsName = [];
+      item.artists.forEach(function (ar, ai) {
+        artistsName.push(ar.name);
+      })
+      this.songMenuPropData.artistsName = artistsName.join("/")//歌手
+      this.songMenuPropData.albumName = item.album.name //专辑名字
+      this.songlistItemVisible = true
+    },
+    showInfoPopup() {
+      this.songlistInfoVisible = true
+    },
+    closePopupfn() {
+      this.songlistInfoVisible = false
+    },
+    scrollStyle() {
+      var scrollTop = 0;
+      if (document.documentElement && document.documentElement.scrollTop) {
+        scrollTop = document.documentElement.scrollTop;
+      } else if (document.body) {
+        scrollTop = document.body.scrollTop
+      }
+      if (scrollTop > 215) {
+        this.isStickUp = true
+        this.headerTitle = this.infoData.title
+      } else {
+        this.isStickUp = false
+        this.headerTitle = '歌单'
+      }
+    },
+    goBack(){
+      this.$router.go(-1);
+    }
+  },
+  components: { songmenu, infodes },
+  created() {
+    this.getinfo();
+    this.getSonglist();
+  },
+  mounted() {
+    var self = this;
+    window.addEventListener('scroll', this.scrollStyle)
   }
+}
 
 </script>
 <style lang="scss">
