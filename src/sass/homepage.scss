@@ -1,33 +1,19 @@
 @import '../sass/common.scss';
 .homepage {
   //header
-  .mui-bar {
-    padding: 0;
-    background: $baseColor;
-    box-shadow: none;
-    .mui-input-row {
-      $icon-width: 50px;
-      display: inline-block;
-      width: calc(100% - #{ $icon-width*2});
-      margin-left: $icon-width;
-      top: 2px;
-      input {
-        background: #fff;
-        font-size: 14px;
-        border-radius: 3px;
-      }
-    }
-    .mui-icon {
-      margin-right: 0;
-      color: #fff;
-    }
+  .mint-header{
+    position: fixed;
+    left: 0;
+    top:0;
+    width: 100%;
+    z-index: 10;
   }
-  .mui-content {
-    padding-top: 84px; //二级切换标签
+  .mui-contents {
+    padding-top: 80px; //二级切换标签
     .tagnav {
       $height: 40px;
       position: fixed;
-      top: 44px;
+      top: 40px;
       @include flex;
       width: 100%;
       height: $height;

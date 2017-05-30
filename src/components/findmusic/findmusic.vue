@@ -1,12 +1,9 @@
 <template>
   <div class="homepage">
-    <header id="header" class="mui-bar mui-bar-nav">
-      <div class="mui-input-row mui-search">
-        <input type="search" class="mui-input-clear" placeholder="搜索音乐歌词电台">
-      </div>
-      <a class="mui-icon mui-icon-bars mui-pull-right"></a>
-    </header>
-    <div class="mui-content">
+    <mt-header title="">
+      <mt-button slot="right"><img src="../../assets/icon/musicfrequency.svg" class="frequency"></mt-button>
+    </mt-header>
+    <div class="mui-contents">
       <!--tabContainer-->
       <div class="tagnav">
         <span v-for='(item, $index) in tagnav' :class="{'on':flag==$index}"  @click="switchs($index)">{{item}} </span>

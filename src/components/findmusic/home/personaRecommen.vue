@@ -27,10 +27,10 @@
     <!--推荐歌单-->
     <div class="recommendSonglist">
       <div class="title">
-        <i class="mui-icon mui-icon-navigate"></i>
+        <i class="fa fa-leaf"></i>
         <span>推荐歌单</span>
         <em>
-          <router-link to="/bottomnav/songlist">更多</router-link>
+          <router-link to="/bottomnav/songlist">更多<b class="fa fa-angle-right fa-fw"></b></router-link>
         </em>
       </div>
       <div class="songlist">
@@ -47,9 +47,9 @@
     <!--独家放送-->
     <div class="exclusiveDelivery">
       <div class="title">
-        <i class="mui-icon mui-icon-navigate"></i>
+        <i class="fa fa-leaf"></i>
         <span>独家放送</span>
-        <em>更多</em>
+        <em>更多<b class="fa fa-angle-right fa-fw"></b></em>
       </div>
       <div class="firstfloor">
         <div class="firstfloorBox left">
@@ -69,9 +69,9 @@
     <!--最新音乐-->
     <div class="latestMusic recommendSonglist">
       <div class="title">
-        <i class="mui-icon mui-icon-navigate"></i>
+        <i class="fa fa-leaf"></i>
         <span>最新音乐</span>
-        <em>更多</em>
+        <em>更多<b class="fa fa-angle-right fa-fw"></b></em>
       </div>
       <div class="songlist">
         <div class="songbox" v-for="(item,index) in latestmusiclist">
@@ -217,7 +217,7 @@ export default {
           font-size: 56px;
           &:before {
             position: absolute;
-            top: 17px;
+            top: -4px;
             right: -4px;
           }
         }
@@ -249,10 +249,10 @@ export default {
         float: right;
         font-size: 12px;
         color: #888;
-        &:after {
-          content: "\e583";
-          font-family: Muiicons;
-        }
+        // &:after {
+        //   content: "\e583";
+        //   font-family: Muiicons;
+        // }
       }
     }
     .songlist {
