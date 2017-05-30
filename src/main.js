@@ -9,6 +9,7 @@ import 'font-awesome'
 Vue.config.productionTip = false;
 
 Vue.use(MintUI);
+Vue.use(store)
 new Vue({
   el: '#app',
   router,
