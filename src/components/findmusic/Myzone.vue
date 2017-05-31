@@ -30,7 +30,7 @@
             <em>0</em>
           </a>
           <a href="javascript:;">
-            <i class="mui-icon mui-icon-compose"></i>
+            <i class="fa fa-edit"></i>
             <p>我的资料</p>
           </a>
 
@@ -82,7 +82,7 @@
           <i class="fa fa-share-square-o fa-fw" slot="icon"></i>
         </mt-cell>
         <mt-cell title="关于"  to="//github.com" is-link>
-          <i class="mui-icon mui-icon-info" slot="icon"></i>
+          <i class="fa fa-info-circle fa-fw" slot="icon"></i>
         </mt-cell>
       </div>
       <!--退出-->
