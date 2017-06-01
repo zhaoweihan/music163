@@ -124,7 +124,7 @@ export default {
     recommendSong() {
       servers.get('/recommendList', result => {
         for (let i = 0; i < result.data.length; i++) {
-          result.data[i].cover = result.data[i].cover.replace("?param=140y140", "");
+          result.data[i].cover = result.data[i].cover.replace("?param=140y140", "?param=220y220");
         }
         this.recommendSonglist = result.data;
       })
@@ -143,6 +143,10 @@ export default {
     //最新音乐
     latestMusicList() {
       servers.get('/latestMusicList', result => {
+        for (let i = 0; i < result.data.length; i++) {
+          result.data[i].picUrl += "?param=220y220";
+        }
+        console.log(result.data);
         this.latestmusiclist = result.data;
       })
     }
