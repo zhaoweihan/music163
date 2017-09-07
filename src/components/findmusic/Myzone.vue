@@ -64,7 +64,7 @@
         </mt-cell>
         <mt-cell title="夜间模式"  to="//github.com" >
           <i class="fa fa-lightbulb-o fa-fw" slot="icon"></i>
-          <mt-switch v-model="value"></mt-switch>
+          <mt-switch v-model="nightModel"></mt-switch>
         </mt-cell>   
         <mt-cell title="定时关闭"  to="//github.com" is-link>
           <i class="fa fa-clock-o fa-fw" slot="icon"></i>
@@ -99,7 +99,8 @@ export default {
   data() {
     return {
       checkInMsg: '签到',
-      isCheckin: false
+      isCheckin: false,
+      nightModel:false//夜间模式开关
     }
   },
   methods: {

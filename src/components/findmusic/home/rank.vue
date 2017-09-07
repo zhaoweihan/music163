@@ -4,14 +4,16 @@
       <div class="itembox-title">云音乐官方榜</div>
       <div class="itembox-content">
         <ul class="ranking-list">
-          <li v-for="(item,index) in music163ranklist">
+          <li v-for="(item,index) in music163ranklist" :key="item.id">
             <div class="ranklogo">
               <img :src="item.cover" />
               <div class="msk"></div>
             </div>
             <div class="rightlist">
-              <p v-for="(song,i) in item.songlist">{{i+1}}.{{song.name}} - 
-                <em v-for="(ar,jk) in song.artists" ><i v-if="jk!=0"> / </i>{{ar.name}}</em>
+              <p v-for="(song,i) in item.songlist" :key="song.id">{{i+1}}.{{song.name}} -
+                <em v-for="(ar,jk) in song.artists" :key="ar.id">
+                  <i v-if="jk!=0"> / </i>{{ar.name}}
+                </em>
               </p>
             </div>
           </li>
@@ -23,9 +25,7 @@
 </template>
 <script>
 import servers from '../../../lib/servers'
-import {
-  Toast
-} from 'mint-ui';
+import { Toast } from 'mint-ui';
 export default {
   data() {
     return {
@@ -35,26 +35,22 @@ export default {
   },
   methods: {
     ranking() {
-      servers.get("/top_list", result => {    
+      servers.get("/top_list", result => {
         this.music163ranklist = result.data[0].items;
-        this.music163ranklist.forEach(function(item, index) {
+        this.music163ranklist.forEach((item, index) => {
           item.cover = item.cover.replace("40y40", "120y120");
-          (function (ids, j) {
-            //排行榜前三首歌
-            servers.get("/topSongList/" + ids, function (a) {
-              a.length = 3;
-              this.music163ranklist[j].songlist = a.data;
-            })
-          })(item.href.split("?id=")[1], index)
+          item.id=item.href.split("?id=")[1];
+            this.getRankSong(item.id, index)
         });
-
       });
-    }
-  },
-  watch: {
-    music163ranklist(n, o) {
-      console.log(n);
-    }
+
+    },
+    getRankSong(id, i) {
+      servers.get("/topSongList/" + id, result => {
+        this.$set(this.music163ranklist[i],'songlist',result.data)
+      })
+    },
+
   },
   created() {
     this.ranking();
@@ -126,5 +122,4 @@ export default {
     }
   }
 }
-
 </style>

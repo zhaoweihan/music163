@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Toast} from 'mint-ui';
 
 
-const baseUrl = 'https://zwh.natapp4.cc';//192.168.102.63 192.168.1.106  47.93.249.147
+const baseUrl = 'http://192.168.102.142:3000';//192.168.102.142 192.168.1.106  
 
 export default {
   get(url, sucessCallback, dataParams) {

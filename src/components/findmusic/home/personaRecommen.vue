@@ -146,7 +146,6 @@ export default {
         for (let i = 0; i < result.data.length; i++) {
           result.data[i].picUrl += "?param=220y220";
         }
-        console.log(result.data);
         this.latestmusiclist = result.data;
       })
     }
