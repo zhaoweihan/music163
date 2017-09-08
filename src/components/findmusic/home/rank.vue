@@ -53,6 +53,7 @@ export default {
 
   },
   created() {
+    this.$emit("active",4);
     this.ranking();
   }
 }

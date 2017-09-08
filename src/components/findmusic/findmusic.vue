@@ -1,16 +1,27 @@
 <template>
   <div class="homepage">
-    <mt-header title="">
-      <mt-button slot="right"><img src="../../assets/icon/musicfrequency.svg" class="frequency"></mt-button>
-    </mt-header>
+    
+		<!-- 自定义头部 -->
+		<div class="diyHeader">
+			<div class="headerbox leftbox">
+				<img src="../../assets/icon/huatong.svg">
+			</div>
+			<div class="centerbox">
+				<input type="text" placeholder="搜索音乐、歌词、台词">
+			</div>
+			<div class="headerbox rightbox">
+				<img src="../../assets/icon/musicfrequency.svg">
+			</div>
+		</div>
+		<!-- 导航其他 -->
     <div class="mui-contents">
       <!--tabContainer-->
       <div class="tagnav">
-        <span v-for='(item, $index) in tagnav' :class="{'on':flag==$index}"  @click="switchs($index)">{{item}} </span>
+        <span v-for='(item, $index) in tagnav' :key="$index" :class="{'on':flag==$index}"  @click="switchs($index)">{{item}} </span>
       </div>
       <!--内容-->
-      <mt-tab-container v-model="tabActive" :swipeable="false">
-       <router-view></router-view>
+      <mt-tab-container   :swipeable="false">
+       <router-view @active="activeData"></router-view>
       </mt-tab-container>
     </div>
   </div>
@@ -26,7 +37,7 @@
 	    return {
 	      flag: 0,
 	      tagnav: ['个性推荐', '歌单', '主播电台', '排行榜'],
-	      tabActive: "tab-container1",
+	      tabActive: 1,
 	    }
 	  },
 	  methods: {
@@ -46,7 +57,10 @@
 							router.push('/bottomnav/rank');
 	          break;
 	      }
-	    }
+			},
+			activeData(val){
+				this.tabActive="tab-container"+val;
+			}
 	  },
 	  watch: {
 	    tabActive(val, oldVal) {

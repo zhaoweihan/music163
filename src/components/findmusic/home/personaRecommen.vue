@@ -34,7 +34,7 @@
         </em>
       </div>
       <div class="songlist">
-        <div class="songbox" v-for="(item,index) in recommendSonglist" v-if="index <	 6" @click="toSonglist(item.type,item.id)">
+        <div class="songbox" v-for="(item,index) in recommendSonglist" :key="index" v-if="index <	 6" @click="toSonglist(item.type,item.id)">
           <i>{{item.num}}</i>
           <div class="imgbox">
             <img v-lazy="item.cover" />
@@ -74,7 +74,7 @@
         <em>更多<b class="fa fa-angle-right fa-fw"></b></em>
       </div>
       <div class="songlist">
-        <div class="songbox" v-for="(item,index) in latestmusiclist">
+        <div class="songbox" v-for="(item,index) in latestmusiclist" :key="index">
           <!--<router-link :to="javascript:;">-->
           <div class="imgbox">
             <img v-lazy="item.picUrl" />
@@ -109,11 +109,6 @@ export default {
   },
 
   methods: {
-    switchs(index) {
-      this.flag = index;
-      this.tabActive = "tab-container" + (index + 1);
-      if (index == 3) this.ranking();
-    },
     //主页banner
     getBannerList() {
       servers.get('/banner_list', result => {

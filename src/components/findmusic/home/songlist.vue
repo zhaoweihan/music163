@@ -46,6 +46,7 @@ import servers from '../../../lib/servers.js'
             }
         },
         created(){
+            this.$emit("active",2);
             this.allsonglistInit();
         }
     }
