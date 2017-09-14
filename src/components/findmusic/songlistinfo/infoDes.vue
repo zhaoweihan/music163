@@ -14,7 +14,7 @@
             <div class="des">
                 <span class="desinfo" v-html="desc"></span>
                 <span class="tags">标签：
-                    <em v-for="tag in infodesdata.tags">{{tag}}</em>
+                    <em v-for="(tag,tagIndex) in infodesdata.tags" :key="tagIndex">{{tag}}</em>
                 </span>
             </div>
             <div class="saveCover">
@@ -55,7 +55,7 @@ export default{
         },
         coverDownload(value){
             if(value){
-                console.log(value.split("http://"))
+                // console.log(value.split("http://"))
                 var val=value.split("http://")[1]
                 return val;
             }

@@ -41,16 +41,21 @@
       </div>
       <transition-group name="slide">
         <!--<i class='fa fa-ellipsis-h'></i>i-->
-        <mt-cell-swipe v-for="(song,index) in songlist" :to="'/musicinfo/'+song.id" :title="(index+1)+' '+song.name" :label="song.artists[0].name+'-'+song.album.name" :key="song.id" :right="[
-                 {
-                   content: '删除',
-                   style: { background: '#ce3d3a', color: '#fff' },
-                   handler: () => deleteSonglistItem(song.id)
-                 }]">
-          <i class='fa fa-ellipsis-h' @click="showsheet(song)"></i>
+        <!--  -->
+        <mt-cell-swipe v-for="(song,index) in songlist" :to="'/musicinfo/'+song.id"  :title="(index+1)+' '+song.name" :label="song.artists[0].name+'-'+song.album.name" :key="song.id" :right="[
+                   {
+                     content: '详情',
+                     style: { background: '#ccc', color: '#fff' },
+                     handler: () => showsheet(song)
+                   },{
+                     content: '删除',
+                     style: { background: '#ce3d3a', color: '#fff' },
+                     handler: () => deleteSonglistItem(song.id)
+                   }]">
+          <!-- <i class='fa fa-ellipsis-h' @click.stop="showsheet(song)"></i> -->
         </mt-cell-swipe>
       </transition-group>
-  
+
     </div>
     <!--歌单详情介绍弹出层-->
     <mt-popup v-model="songlistInfoVisible" pop-transition="popup-fade" class="songlistInfoPopup">
@@ -68,12 +73,15 @@ import { Toast } from 'mint-ui';
 
 import songmenu from './songlistinfo/songmenu';
 import infodes from './songlistinfo/infoDes'
-
+import default_album from '../../assets/default_album.jpg'
 export default {
   data() {
     return {
       headerTitle: "歌单",
-      infoData: {},
+      infoData: {
+        cover:default_album,
+        ownerPic:default_album
+      },
       songNum: 0,
       songlist: [],
       songlistItemVisible: false,//控制歌曲操作菜单
@@ -89,7 +97,7 @@ export default {
   methods: {
     getinfo() {
       const self = this;
-      servers.get('/playlist/' + self.$route.params.id, function (result) {
+      servers.get('/playlist/' + self.$route.params.id, function(result) {
         // console.log(result)
         result.data.cover += result.data.cover + "?param=144y144"
         self.infoData = result.data
@@ -98,7 +106,7 @@ export default {
     },
     getSonglist() {
       const self = this;
-      servers.get('/song_list/' + self.$route.params.id, function (result) {
+      servers.get('/song_list/' + self.$route.params.id, function(result) {
         // console.log(result)
         self.songNum = result.data.length;
         self.songlist = result.data;
@@ -106,7 +114,7 @@ export default {
     },
     deleteSonglistItem(id) {
       const self = this;
-      self.songlist.forEach(function (element, i) {
+      self.songlist.forEach(function(element, i) {
         if (id == element.id) {
           self.songlist.splice(i, 1);
         }
@@ -116,7 +124,7 @@ export default {
       // console.log(item)
       this.songMenuPropData.name = item.name;//歌曲名字
       var artistsName = [];
-      item.artists.forEach(function (ar, ai) {
+      item.artists.forEach(function(ar, ai) {
         artistsName.push(ar.name);
       })
       this.songMenuPropData.artistsName = artistsName.join("/")//歌手
@@ -144,7 +152,7 @@ export default {
         this.headerTitle = '歌单'
       }
     },
-    goBack(){
+    goBack() {
       this.$router.go(-1);
     }
   },

@@ -59,6 +59,7 @@
           margin: 10px 0 20px 0;
           font-size: 15px;
           color: #fff;
+          min-height: 20px;
         }
         .owner {
           font-size: 13px;
@@ -139,6 +140,10 @@
           margin-right: 5px;
         }
       }
+    }
+    // 歌单列表第一项
+    .mint-cell{
+      overflow: visible;
     }
   }
   //底部弹出功能
