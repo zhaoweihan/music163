@@ -3,9 +3,9 @@ import axios from 'axios';
 import {Toast} from 'mint-ui';
 
 if(process.env.NODE_ENV === 'production'){
-  const baseUrl = 'http://39.107.115.234:3000';
+  var baseUrl = 'http://39.107.115.234:3000';
 }else{
-  const baseUrl = 'http://localhost:3000';
+  var baseUrl = 'http://localhost:3000';
 }
 //192.168.102.142 192.168.1.106
 
