@@ -11,11 +11,14 @@
   .diyHeader{
     position: fixed;
     left: 0;
+    right:0;
     top: 0;
     background: $baseColor;
     width: 100%;
+    max-width: 640px;
     height: 40px;
     z-index: 10;
+    margin: 0 auto;
     $boxWidth:40px;
     .headerbox{
       width: $boxWidth;
@@ -55,9 +58,13 @@
     .tagnav {
       $height: 40px;
       position: fixed;
+      left: 0;
+      right: 0;
       top: 40px;
       @include flex;
       width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
       height: $height;
       background: $basewhiteColor;
       color: $fontColor;

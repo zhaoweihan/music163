@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Toast} from 'mint-ui';
 
 
-const baseUrl = 'http://192.168.102.142:3000';//192.168.102.142 192.168.1.106  
+const baseUrl = 'http://localhost:3000';//192.168.102.142 192.168.1.106
 
 export default {
   get(url, sucessCallback, dataParams) {

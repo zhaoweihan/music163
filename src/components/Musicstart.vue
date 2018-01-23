@@ -1,6 +1,6 @@
 <template>
 	<div class="musicstart">
-		<img src="../assets/music163start.jpg" v-on:load="init"/>
+		<img src="../assets/music163start.jpg" v-load="init()"/>
 	</div>
 </template>
 
@@ -29,6 +29,9 @@
 		position: fixed;
 		width: 100%;
 		height: 100%;
+    max-width:640px;
+    right:0;
+    margin:0 auto;
 		left: 0;
 		top: 0;
 		z-index: 100;
