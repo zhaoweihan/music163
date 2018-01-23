@@ -41,7 +41,7 @@
           </div>
           <p>{{item.title}}</p>
         </div>
-  
+
       </div>
     </div>
     <!--独家放送-->
@@ -84,7 +84,7 @@
           </p>
           <!--</router-link>-->
         </div>
-  
+
       </div>
     </div>
   </mt-tab-container-item>
@@ -152,7 +152,13 @@ export default {
   },
   computed: {
     bannerHeight() { //动态计算banner图高度。以达到自适应
-      return screen.width / 2.17;
+      let sw=0;
+      if(screen.width>640){
+        sw=640;
+      }else{
+        sw=screen.width;
+      }
+      return  sw / 2.17;
     }
   },
   created() {

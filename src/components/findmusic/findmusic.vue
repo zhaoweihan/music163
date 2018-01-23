@@ -1,6 +1,6 @@
 <template>
   <div class="homepage">
-    
+
 		<!-- 自定义头部 -->
 		<div class="diyHeader">
 			<div class="headerbox leftbox">
@@ -20,7 +20,7 @@
         <span v-for='(item, $index) in tagnav' :key="$index" :class="{'on':flag==$index}"  @click="switchs($index)">{{item}} </span>
       </div>
       <!--内容-->
-      <mt-tab-container   :swipeable="false">
+      <mt-tab-container :swipeable="false">
        <router-view @active="activeData"></router-view>
       </mt-tab-container>
     </div>
