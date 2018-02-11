@@ -1,7 +1,8 @@
 <template>
 <div id="bottomnav">
-  <router-view></router-view>
-
+  <keep-alive>
+    <router-view></router-view>
+  </keep-alive>
   <div class="bottomNav">
     <router-link to="/bottomnav/"><i class="iconfont icon-wangyiyunyinlezizhi"></i>发现音乐</router-link>
     <router-link to="/bottomnav/mymusic" ><i class="iconfont icon-music"></i>我的音乐</router-link>
@@ -61,5 +62,5 @@
 	   }
 	 }
 
-      
+
 </style>
