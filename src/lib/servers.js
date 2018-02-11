@@ -2,7 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import {Toast} from 'mint-ui';
 
-if(process.env.NODE_ENV != 'production'){
+if(process.env.NODE_ENV == 'production'){
   var baseUrl = 'http://39.107.115.234:3000';
 }else{
   var baseUrl = 'http://localhost:3000';
