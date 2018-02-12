@@ -21,7 +21,9 @@
       </div>
       <!--内容-->
       <mt-tab-container :swipeable="false">
-       <router-view @active="activeData"></router-view>
+        <keep-alive>
+          <router-view @active="activeData"></router-view>
+        </keep-alive>
       </mt-tab-container>
     </div>
   </div>
