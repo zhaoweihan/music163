@@ -22,9 +22,7 @@ import Friends from '../components/findmusic/Friends';
 import SonglistInfo from '../components/findmusic/SonglistInfo';
 import Musicinfo from '../components/Musicinfo';
 
-//列表页测试
-import testlist from '@/testComponents/testlist';
-import testitem from '@/testComponents/testitem';
+
 
 Vue.use(Router);
 
@@ -79,16 +77,6 @@ export default new Router({
             path: '/musicinfo/:id',
             name: 'musicinfo',
             component: Musicinfo
-        },
-        {
-            path: '/testlist',
-            name: 'testlist',
-            component: testlist
-        },
-        {
-            path: '/testitem/:num',
-            name: 'testitem',
-            component: testitem
         }
     ]
 });
