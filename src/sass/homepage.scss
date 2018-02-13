@@ -5,8 +5,8 @@
     position: fixed;
     left: 0;
     top:0;
+    z-index: 100;
     width: 100%;
-    z-index: 10;
   }
   .diyHeader{
     position: fixed;
@@ -17,7 +17,7 @@
     width: 100%;
     max-width: 640px;
     height: 40px;
-    z-index: 10;
+    z-index: 100;
     margin: 0 auto;
     $boxWidth:40px;
     .headerbox{
