@@ -10,6 +10,7 @@
       </div>
     </div>
     <div class="hr"></div>
+    <!-- 热门话题 -->
     <div class="hotTopic">
       <h3 class="hotTopic-title">热门话题
         <i class="fa fa-angle-right fa-fw"></i>
@@ -21,6 +22,54 @@
           </li>
         </ul>
       </div>
+    </div>
+    <!-- 动态列表 -->
+    <div class="dynamicNews-list">
+      <div class="dynamicNews-list-item">
+        <!-- 左侧头像 -->
+        <div class="leftBox">
+          <div class="avatar imgbox">
+            <img src="../assets/defaultAvatar/tz.jpg" alt="用户头像">
+          </div>
+        </div>
+        <!-- 右侧 -->
+        <div class="rightBox">
+          <div class="userbox">
+            <router-link to="/" class="username">黑色摩天轮</router-link>
+            <span class="behavior-type">分享歌曲：</span>
+            <div class="send-time">刚刚</div>
+          </div>
+          <div class="send-words">
+            我就是测试下
+            <router-link to="/" class="topic">#单身狗的日常心酸#</router-link> 哈哈哈
+          </div>
+          <!-- 音乐 -->
+          <div class="share-music">
+            <div class="cover imgbox">
+              <img src="../assets/defaultAvatar/f.jpg" alt="歌曲封面">
+              <img src="../assets/icon/play.svg" alt="播放按钮" class="playBtn">
+            </div>
+            <p class="music-name">理想</p>
+            <p class="singer">赵雷</p>
+          </div>
+          <!-- 操作区域 -->
+          <div class="operating-area">
+            <div class="operating-area-btn">
+              <i class="fa fa-thumbs-o-up fa-fw"></i>赞
+            </div>
+            <div class="operating-area-btn">
+              <i class="fa fa-commenting-o fa-fw"></i>评论
+            </div>
+            <div class="operating-area-btn">
+              <i class="fa fa-share-square-o fa-fw"></i>分享
+            </div>
+            <div class="operating-area-btn">
+              <i class="fa fa-ellipsis-h fa-fw"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -79,7 +128,7 @@ export default {
   // 热门话题
   .hotTopic {
     width: 100%;
-    height: 150px;
+    height: 130px;
     border-bottom: 1px solid #eee;
     .hotTopic-title {
       height: 30px;
@@ -90,14 +139,14 @@ export default {
       color: #555;
     }
     .hotTopic-scrollBox {
-      height: 80px;
+      height: 70px;
       width: 100%;
       padding-left: 10px;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       .hotTopic-list {
         height: 100%;
-        width: 488px;
-        -webkit-overflow-scrolling: touch;
+        width: 498px;
         .hotTopic-list-item {
           @include flex;
           justify-content: center;
@@ -108,14 +157,116 @@ export default {
           background: #eee;
           margin-right: 10px;
           float: left;
-          background: rgba(0,0,0,.2);
-          &:last-of-type {
-            margin-right: 0;
-          }
-          .words{
+          background: rgba(0, 0, 0, 0.2);
+          .words {
             display: inline-block;
             width: 60%;
             color: #fff;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+  // 动态列表
+  .dynamicNews-list {
+    .dynamicNews-list-item {
+      width: 100%;
+      border-bottom: 1px solid #eee;
+      padding: 20px 0;
+      @include flex;
+      font-size: 16px;
+      // 左侧
+      $avatar: 44px;
+      .leftBox {
+        width: $avatar+20px;
+        .avatar {
+          width: $avatar;
+          height: $avatar;
+          border-radius: 50%;
+          overflow: hidden;
+          margin: 0 auto;
+        }
+      }
+      // 右侧
+      .rightBox {
+        width: calc(100% - #{$avatar} - 20px);
+        padding-right: 10px;
+        a {
+          color: #4b77b0;
+        }
+        .userbox {
+          color: #444;
+          margin-bottom: 15px;
+          .send-time {
+            font-size: 12px;
+            color: #999;
+          }
+        }
+        .send-words {
+          margin-bottom: 10px;
+        }
+        // 分享的音乐
+        .share-music{
+          position: relative;
+          width: 100%;
+          height: 60px;
+          background: #f1f2f4;
+          padding-top: 8px;
+          margin-bottom: 15px;
+          .cover{
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            z-index: 1;
+            width: 44px;
+            height: 44px;
+            &::after{
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(0,0,0,.3);
+              z-index: 2;
+            }
+            .playBtn{
+              $w:70%;
+              position: absolute;
+              left:(100% - $w)/2;
+              top: (100% - $w)/2;
+              width: $w;
+              height: $w;
+              z-index: 3;
+            }
+          }
+          p{
+            margin-left: 60px;
+            &.music-name{
+              color: #333;
+            }
+            &.singer{
+              color: #888;
+              font-size: 12px;
+            }
+          }
+
+        }
+        // 操作区域
+        .operating-area {
+          @include flex;
+          .operating-area-btn {
+            @include flex-1;
+            color: #999;
+            font-size: 14px;
+            &:last-of-type{
+              text-align: right;
+              i{
+                margin-right: 15px;
+                font-size: 20px;
+              }
+            }
           }
         }
       }
