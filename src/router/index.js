@@ -22,60 +22,73 @@ import Friends from '../components/findmusic/Friends';
 import SonglistInfo from '../components/findmusic/SonglistInfo';
 import Musicinfo from '../components/Musicinfo';
 
+//列表页测试
+import testlist from '@/testComponents/testlist';
+import testitem from '@/testComponents/testitem';
 
 Vue.use(Router);
 
 export default new Router({
-  // mode: 'history',
-  routes: [ {
-      path: '/',
-      name: 'musicstart',
-      component: Musicstart
-    },
-    // 首页
-    {
-      path: '/bottomnav',
-      component: Bottomnav,
-      children: [{
-          path: '/',
-          component: Findmusic,
-          children: [{
+    // mode: 'history',
+    routes: [{
             path: '/',
-            name: 'personaRecommen',
-            component: personaRecommen
-          }, {
-            path: 'rank',
-            component: rank
-          }, {
-            path: 'songlist',
-            component: songlist
-          }, {
-            path: 'anchorStation',
-            component: anchorStation
-          }],
+            name: 'musicstart',
+            component: Musicstart
+        },
+        // 首页
+        {
+            path: '/bottomnav',
+            component: Bottomnav,
+            children: [{
+                    path: '/',
+                    component: Findmusic,
+                    children: [{
+                        path: '/',
+                        name: 'personaRecommen',
+                        component: personaRecommen
+                    }, {
+                        path: 'rank',
+                        component: rank
+                    }, {
+                        path: 'songlist',
+                        component: songlist
+                    }, {
+                        path: 'anchorStation',
+                        component: anchorStation
+                    }],
+                },
+                {
+                    path: 'mymusic',
+                    component: Mymusic
+                },
+                {
+                    path: 'friends',
+                    component: Friends
+                },
+                {
+                    path: 'myzone',
+                    component: Myzone
+                },
+                {
+                    path: 'songlistinfo/:id',
+                    component: SonglistInfo
+                }
+            ]
         },
         {
-          path: 'mymusic',
-          component: Mymusic
+            path: '/musicinfo/:id',
+            name: 'musicinfo',
+            component: Musicinfo
         },
         {
-          path: 'friends',
-          component: Friends
+            path: '/testlist',
+            name: 'testlist',
+            component: testlist
         },
         {
-          path: 'myzone',
-          component: Myzone
-        },
-         {
-          path: 'songlistinfo/:id',
-          component: SonglistInfo
+            path: '/testitem/:num',
+            name: 'testitem',
+            component: testitem
         }
-      ]
-    },
-    {
-      path: '/musicinfo/:id',
-      name: 'musicinfo',
-      component: Musicinfo
-    }
-  ]
+    ]
 });
