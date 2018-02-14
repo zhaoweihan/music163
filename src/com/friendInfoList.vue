@@ -17,8 +17,9 @@
       </h3>
       <div class="hotTopic-scrollBox">
         <ul class="hotTopic-list">
-          <li class="hotTopic-list-item" v-for="b in 3" :key="b">
-            <span class="words">#{{b}}一首歌预测你的情人节#</span>
+          <li class="hotTopic-list-item imgbox" v-for="b in topicList" :key="b">
+            <img :src="b.img" alt="热门话题">
+            <span class="words">#{{b.name}}#</span>
           </li>
         </ul>
       </div>
@@ -43,6 +44,8 @@
             我就是测试下
             <router-link to="/" class="topic">#单身狗的日常心酸#</router-link> 哈哈哈
           </div>
+          <!-- 图片 -->
+          <image-matrix :imglist="imagelist"></image-matrix>  
           <!-- 音乐 -->
           <div class="share-music">
             <div class="cover imgbox">
@@ -74,16 +77,33 @@
   </div>
 </template>
 <script>
+import topic from "../assets/topic/topic.jpg";
+import topic2 from "../assets/topic/topic2.jpg";
+import topic3 from "../assets/topic/topic3.jpg";
+import cover from "../assets/music163start.jpg";
+import imageMatrix from '../com/imageMatrix';
 export default {
   data() {
     return {
-      h: 1
+      topicList: [
+        {
+          name: "单身狗的日常心酸",
+          img: topic
+        },
+        {
+          name: "你心动的瞬间",
+          img: topic2
+        },
+        {
+          name: "宝莱坞明星",
+          img: topic3
+        }
+      ],
+      imagelist:[topic3]
     };
   },
   methods: {},
-  created() {
-    console.log(1);
-  }
+  components:{imageMatrix}
 };
 </script>
 <style lang="scss" scoped>
@@ -139,7 +159,7 @@ export default {
       color: #555;
     }
     .hotTopic-scrollBox {
-      height: 70px;
+      height: 60px;
       width: 100%;
       padding-left: 10px;
       overflow-x: auto;
@@ -158,6 +178,12 @@ export default {
           margin-right: 10px;
           float: left;
           background: rgba(0, 0, 0, 0.2);
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+          }
           .words {
             display: inline-block;
             width: 60%;
@@ -207,51 +233,50 @@ export default {
           margin-bottom: 10px;
         }
         // 分享的音乐
-        .share-music{
+        .share-music {
           position: relative;
           width: 100%;
           height: 60px;
           background: #f1f2f4;
           padding-top: 8px;
           margin-bottom: 15px;
-          .cover{
+          .cover {
             position: absolute;
             left: 8px;
             top: 8px;
             z-index: 1;
             width: 44px;
             height: 44px;
-            &::after{
-              content: '';
+            &::after {
+              content: "";
               position: absolute;
               left: 0;
               top: 0;
               width: 100%;
               height: 100%;
-              background: rgba(0,0,0,.3);
+              background: rgba(0, 0, 0, 0.3);
               z-index: 2;
             }
-            .playBtn{
-              $w:70%;
+            .playBtn {
+              $w: 70%;
               position: absolute;
-              left:(100% - $w)/2;
+              left: (100% - $w)/2;
               top: (100% - $w)/2;
               width: $w;
               height: $w;
               z-index: 3;
             }
           }
-          p{
+          p {
             margin-left: 60px;
-            &.music-name{
+            &.music-name {
               color: #333;
             }
-            &.singer{
+            &.singer {
               color: #888;
               font-size: 12px;
             }
           }
-
         }
         // 操作区域
         .operating-area {
@@ -260,9 +285,9 @@ export default {
             @include flex-1;
             color: #999;
             font-size: 14px;
-            &:last-of-type{
+            &:last-of-type {
               text-align: right;
-              i{
+              i {
                 margin-right: 15px;
                 font-size: 20px;
               }
