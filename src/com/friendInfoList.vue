@@ -99,7 +99,7 @@ export default {
           img: topic3
         }
       ],
-      imagelist:[topic3]
+      imagelist:[topic2,topic]
     };
   },
   methods: {},
