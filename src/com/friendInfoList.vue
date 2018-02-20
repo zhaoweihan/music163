@@ -242,6 +242,7 @@ export default {
         }
         .send-words {
           margin-bottom: 10px;
+          word-wrap: break-word;
         }
         // 分享的音乐
         .share-music {
