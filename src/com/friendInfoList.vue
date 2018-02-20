@@ -26,26 +26,26 @@
     </div>
     <!-- 动态列表 -->
     <div class="dynamicNews-list">
-      <div class="dynamicNews-list-item">
+      <div class="dynamicNews-list-item"  v-for="item in dynamicList" :key="item.id">
         <!-- 左侧头像 -->
         <div class="leftBox">
           <div class="avatar imgbox">
-            <img src="../assets/defaultAvatar/tz.jpg" alt="用户头像">
+            <img :src="item.avatar" alt="用户头像">
           </div>
         </div>
         <!-- 右侧 -->
         <div class="rightBox">
           <div class="userbox">
-            <router-link to="/" class="username">黑色摩天轮</router-link>
-            <span class="behavior-type">分享歌曲：</span>
-            <div class="send-time">刚刚</div>
+            <router-link to="/" class="username">{{item.username}}</router-link>
+            <span class="behavior-type">{{item.shareType}}：</span>
+            <div class="send-time">{{item.shareTime}}</div>
           </div>
           <div class="send-words">
-            我就是测试下
-            <router-link to="/" class="topic">#单身狗的日常心酸#</router-link> 哈哈哈
+            {{item.content}}
+            <router-link to="/" class="topic" v-if="item.content.indexOf('#')>-1">#单身狗的日常心酸#</router-link>
           </div>
           <!-- 图片 -->
-          <image-matrix :imglist="imagelist"></image-matrix>  
+          <image-matrix :imglist="item.imglist" :itemid="item.id"></image-matrix>  
           <!-- 音乐 -->
           <div class="share-music">
             <div class="cover imgbox">
@@ -81,7 +81,8 @@ import topic from "../assets/topic/topic.jpg";
 import topic2 from "../assets/topic/topic2.jpg";
 import topic3 from "../assets/topic/topic3.jpg";
 import cover from "../assets/music163start.jpg";
-import imageMatrix from '../com/imageMatrix';
+import imageMatrix from "../com/imageMatrix";
+import servers from "../lib/servers";
 export default {
   data() {
     return {
@@ -99,11 +100,21 @@ export default {
           img: topic3
         }
       ],
-      imagelist:[topic2,topic]
+      dynamicList: [],
+      imagelist: [topic2, topic]
     };
   },
-  methods: {},
-  components:{imageMatrix}
+  methods: {
+    getlist() {
+      servers.post("/friendsDynamicList", {}, result => {
+        this.dynamicList = result.list;
+      });
+    }
+  },
+  created() {
+    this.getlist();
+  },
+  components: { imageMatrix }
 };
 </script>
 <style lang="scss" scoped>

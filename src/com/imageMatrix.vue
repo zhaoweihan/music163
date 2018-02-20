@@ -1,7 +1,7 @@
 <template>
   <div class="imgMax-box">
       <ul class="imgMax-list" :class="{one:imglist.length==1,two:imglist.length==2||imglist.length==4,otherNum:imglist.length==3||imglist.length>4}">
-          <li class="imgMax-list-item" v-for="(img,i) in imglist" :key="i">
+          <li class="imgMax-list-item" :class="'imgMax-list-item'+itemid" v-for="(img,i) in imglist" :key="i">
               <img :src="img" @load="imgload($event)">
           </li>
       </ul>
@@ -13,6 +13,10 @@ export default {
     return { a: "aa" };
   },
   props: {
+    itemid:{
+      type:String,
+      required: true
+    },
     imglist: {
       type: Array,
       required: true
@@ -20,12 +24,13 @@ export default {
   },
   methods: {
     imgload(e) {
+      
       let ele = e.target;
       let imgNW = ele.naturalWidth;
       let imgMH = ele.naturalHeight;
       let liW = ele.parentNode.clientWidth;
       let liH = ele.parentNode.clientHeight;
-      if (imgNW >= liW && imgMH >= liH) {
+      if (imgNW >= liW && imgMH >= liH) { 
         if (imgNW >= imgMH) {
           ele.style.height = "100%";
           ele.style.width = "auto";
@@ -41,7 +46,7 @@ export default {
       }
     },
     countItemSize() {
-      let domList = document.querySelectorAll(".imgMax-list-item");
+      let domList = document.querySelectorAll(".imgMax-list-item"+this.itemid);
       if (domList.length == 1) return;
       domList.forEach((ele, index) => {
         ele.style.height = domList[0].offsetWidth + "px";
@@ -60,7 +65,6 @@ export default {
   margin-bottom: 10px;
   .imgMax-list {
     .imgMax-list-item {
-      position: relative;
       @include flex;
       overflow: hidden;
     }
@@ -84,8 +88,11 @@ export default {
     }
     &.otherNum {
       font-size: 0;
+      @include flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
       .imgMax-list-item {
-        display: inline-block;
+        @include flex;
         width: calc(33.33% - 2px);
         &:nth-of-type(2),
         &:nth-of-type(3),

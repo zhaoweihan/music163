@@ -30,7 +30,8 @@ export default {
             });
 
     },
-    post(url, sucessCallback, dataParams) {
+    post(url, dataParams, sucessCallback, ) {
+        let baseUrl = "https://www.easy-mock.com/mock/5a8b8087f782f91eb16b173f/music163"
         axios.post(baseUrl + url, dataParams)
             .then(function(response) {
                 const result = response.data;
