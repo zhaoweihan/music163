@@ -11,7 +11,7 @@
             <em>华语</em>
         </div>
         <ul>
-            <li v-for="(item, index) in allsonglist" :key="item.id" :data-id="item.id">
+            <li v-for="item in allsonglist" :key="item.id" :data-id="item.id">
                     <router-link :to="'/bottomnav/songlistinfo/'+item.id">
                     <div class="imgbox">
                         <img  v-lazy="item.picUrl">
@@ -52,6 +52,5 @@ import servers from '../../../lib/servers.js'
     }
 </script>
 <style scoped lang="scss">
-    @import '../../../sass/common';
     @import '../../../sass/songlist';
 </style>

@@ -29,7 +29,6 @@
     </div>
 </template>
 <style lang="scss" >
-@import '../../../sass/common';
 .songmenu {
     .songmenu-title {
         $title-height: 50px;

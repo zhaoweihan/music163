@@ -169,6 +169,5 @@ export default {
 
 </script>
 <style lang="scss">
-@import '../../sass/common';
 @import '../../sass/songlistinfo';
 </style>

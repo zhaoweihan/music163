@@ -23,7 +23,6 @@
 	}
 </script>
 <style lang="scss" scoped>
-    @import '../sass/common.scss';
 	 .bottomNav {
 	   $bottomNav-height: 50px;
 	   font-family: 'Avenir', 'Helvetica', 'Arial', 'sans-serif';

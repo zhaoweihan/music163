@@ -178,7 +178,6 @@ export default {
 
 </script>
 <style scoped lang="scss">
-@import '../../../sass/common.scss';
 [data-class='tab-container-1'] {
   display: block !important; //轮播图
   .mint-swipe {

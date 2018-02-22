@@ -118,6 +118,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '../../sass/common';
   @import '../../sass/myzone';
 </style>

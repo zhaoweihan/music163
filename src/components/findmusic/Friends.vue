@@ -51,7 +51,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../sass/common";
 .diy-header {
   $header-height: 40px;
   width: 100%;

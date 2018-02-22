@@ -17,5 +17,4 @@
 </script>
 
 <style lang="scss">
-	@import './sass/common.scss';
 </style>

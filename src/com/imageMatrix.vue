@@ -59,7 +59,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../sass/common.scss";
 .imgMax-box {
   width: 100%;
   margin-bottom: 10px;

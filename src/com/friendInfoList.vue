@@ -118,7 +118,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../sass/common";
 .friendinfo-box {
   .hr {
     width: 100%;

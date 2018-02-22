@@ -4,7 +4,7 @@
       <div class="itembox-title">云音乐官方榜</div>
       <div class="itembox-content">
         <ul class="ranking-list">
-          <li v-for="(item,index) in music163ranklist" :key="item.id">
+          <li v-for="item in music163ranklist" :key="item.id">
             <div class="ranklogo">
               <img :src="item.cover" />
               <div class="msk"></div>
@@ -63,7 +63,6 @@ export default {
 
 </script>
 <style scoped lang="scss" >
-@import '../../../sass/common.scss';
 [data-class="tab-container-4"] {
   display: block !important;
   .ranking-itembox {
