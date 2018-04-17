@@ -17,7 +17,7 @@
       </h3>
       <div class="hotTopic-scrollBox">
         <ul class="hotTopic-list">
-          <li class="hotTopic-list-item imgbox" v-for="b in topicList" :key="b">
+          <li class="hotTopic-list-item imgbox" v-for="(b,index) in topicList" :key="index">
             <img :src="b.img" alt="热门话题">
             <span class="words">#{{b.name}}#</span>
           </li>
